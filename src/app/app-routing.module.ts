@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { DashboardComponent } from './dashboard/dashboard.component';
+
 import { IncidentCreateComponent } from './incident/incident-create/incident-create.component';
 import { IncidentViewComponent } from './incident/incident-view/incident-view.component';
 
@@ -22,7 +24,8 @@ import { CreateAssetsComponent } from './new-assets/create-assets/create-assets.
 
 
 const routes: Routes = [
-  { path: '', component: OrgcreateComponent},
+  { path: '', component: DashboardComponent},
+  { path: 'dashboard', component: DashboardComponent},
   { path: 'incident-create', component: IncidentCreateComponent},
   { path: 'incident-view', component: IncidentViewComponent},
   { path: 'office-create', component: OfficeCreateComponent},

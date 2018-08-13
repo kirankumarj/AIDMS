@@ -58,6 +58,7 @@ import { ShelterViewComponent } from './shelter/shelter-view/shelter-view.compon
 import { CreateAssetsComponent } from './new-assets/create-assets/create-assets.component';
 import { AssetsService } from './services/assets/assets.service';
 import { AssetsEffects } from './new-assets/store/assets.effects';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 
@@ -99,7 +100,8 @@ import { AssetsEffects } from './new-assets/store/assets.effects';
     ResourceViewComponent,
     ShelterCreateComponent,
     ShelterViewComponent,
-    CreateAssetsComponent
+    CreateAssetsComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
