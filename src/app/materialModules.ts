@@ -1,13 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
-
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {
   MatButtonModule,
   MatCheckboxModule,
   MatGridListModule,
+  MatListModule,
   MatMenuModule,
   MatFormFieldModule,
   MatInputModule,
@@ -27,6 +27,7 @@ const module = [
   MatButtonModule,
   MatCheckboxModule,
   MatGridListModule,
+  MatListModule,
   MatMenuModule,
   MatFormFieldModule,
   MatInputModule,

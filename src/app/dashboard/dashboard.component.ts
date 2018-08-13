@@ -54,6 +54,10 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     );
   }
 
+  setStep(index: number) {
+    this.step = index;
+  }
+
   loadMap() {
     this.map = new maptalks.Map('map', {
       center: [this.newOrg.latitude, this.newOrg.longitude],
