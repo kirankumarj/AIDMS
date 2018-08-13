@@ -1,0 +1,45 @@
+.container{width:100%; height: 100%;}
+
+.container{
+  width:100%;
+  height: 540px;
+}
+
+#wrapper {
+  margin: 0 auto;
+}
+#leftcolumn, #rightcolumn {
+ border: 1px solid grey;
+ float: left;
+ min-height: 450px;
+ color: black;
+}
+#leftcolumn {
+  width: 550px;
+  background-color: #777;
+  height: 540px;
+}
+#rightcolumn {
+  width: 650px;
+  background-color:black;
+}
+
+div#search input {
+	width: 530px;
+}
+div#results {
+	font-style: sans-serif;
+	color: black;
+	font-size: 75%;
+}
+
+div#search {
+    background-color: lightgray;
+    position: absolute;
+    top: 50px;
+    height: auto;
+    padding: 2px;
+    width: 537px;
+    font-size: 15px;
+}
+
