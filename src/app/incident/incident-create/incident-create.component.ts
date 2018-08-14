@@ -15,12 +15,13 @@ export class IncidentCreateComponent implements OnInit, AfterViewInit {
   step = 0;
   organizations: OrgMapInfo[];
   newIncident = {
-    id: 'Enter Id',
-    name: 'Enter Incident Name',
-    type: 'Enter Incient type',
-    info: 'Enter Incient info',
+    id: '',
+    name: '',
+    type: '',
+    info: '',
     latitude: 0,
     longitude: 0,
+    priority: ''
   };
 
   incidents = [];
@@ -33,10 +34,10 @@ export class IncidentCreateComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.newIncident.latitude = -0.131049;
     this.newIncident.longitude = 51.498568;
-    this.newIncident.id = '0';
-    this.newIncident.name = 'enter incident name';
-    this.newIncident.type = 'enter incident type';
-    this.newIncident.info = 'enter incident info';
+    this.newIncident.id = '';
+    this.newIncident.name = '';
+    this.newIncident.type = '';
+    this.newIncident.info = '';
     this.service.incident.subscribe(res => this.incidents = res);
     this.service.saveIncident(this.incidents);
   }
@@ -110,6 +111,13 @@ export class IncidentCreateComponent implements OnInit, AfterViewInit {
       duration: 1000,
     });
     this.step = 0;
+  }
+
+  changePriority(value) {
+    if ( value ) {
+      this.newIncident.priority = value;
+      console.log('changed', value);
+    }
   }
 
 }
