@@ -11,9 +11,38 @@
                     Enter Assets Details
                   </mat-panel-description>
                 </mat-expansion-panel-header>
+
+                <mat-form-field >
+                  <input matInput placeholder="Asset Name" formControlName='assetName'/>
+              </mat-form-field>
+                <mat-form-field>
+                  <mat-select placeholder="Select Category" formControlName='category' #categoryRef (selectionChange)="onChangeCategory(categoryRef.value)">
+                    <mat-option *ngFor="let category of categoriesList" [value]="category">
+                      {{category.categorName}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-select placeholder="Select Item" formControlName='item'>
+                    <mat-option *ngFor="let item of displayItems" [value]="item">
+                      {{item.itemName}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <!-- <mat-form-field>
+                  <mat-select placeholder="Select Supplier" formControlName='supplier'>
+                    <mat-option *ngFor="let supplier of supliersList" [value]="supplier">
+                      {{supplier.name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field> -->
+                <mat-form-field >
+                  <input matInput placeholder="Facility Name" formControlName='facility'/>
+              </mat-form-field>
+<!-- 
                     <mat-form-field >
                         <input matInput placeholder="Asset Name" formControlName='name'/>
-                    </mat-form-field>
+                    </mat-form-field> -->
                         <mat-form-field>
                                 <mat-select placeholder="Select organization" formControlName='organizationName'>
                                   <mat-option *ngFor="let organization of organizationList" [value]="organization.name">
@@ -21,12 +50,44 @@
                                   </mat-option>
                                 </mat-select>
                               </mat-form-field>
+                              <mat-form-field >
+                                <input matInput placeholder="CITY" formControlName='cityname' (keypress)="loadMap()"/>
+                            </mat-form-field>
+                            <mat-form-field >
+                              <input matInput placeholder="state district" formControlName='state_district' (keypress)="loadMap()"/>
+                          </mat-form-field>
+                          <mat-form-field >
+                            <input matInput placeholder="State" formControlName='state' (keypress)="loadMap()"/>
+                        </mat-form-field>
+                        <mat-form-field >
+                          <input matInput placeholder="Country" formControlName='country' (keypress)="loadMap()"/>
+                      </mat-form-field>
+                      <mat-form-field >
+                        <input matInput placeholder="Pin Code" formControlName='postcode' (keypress)="loadMap()"/>
+                    </mat-form-field>
+                              
+                              
                 <mat-action-row>
                     <button mat-button color="primary" type="submit">Submit</button>
                   </mat-action-row>
             </mat-expansion-panel>
         </mat-accordion>
     </form>
+    <!-- <mat-form-field>
+      <input matInput type="text" placeholder="City" [(ngModel)]="newOrg.address.city" [value]=newOrg.address.city (keypress)="loadMap()">
+  </mat-form-field> -->
+  <!-- <mat-form-field>
+    <input matInput type="text" placeholder="state district" [(ngModel)]="newOrg.address.state_district" [value]=newOrg.address.state_district (keypress)="loadMap()">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="text" placeholder="State" [(ngModel)]="newOrg.address.state" [value]=newOrg.address.state (keypress)="loadMap()">
+  </mat-form-field>
+  <mat-form-field>
+      <input matInput type="text" placeholder="Country" [(ngModel)]="newOrg.address.country" [value]=newOrg.address.country (keypress)="loadMap()">
+  </mat-form-field>
+  <mat-form-field>
+      <input matInput type="text" placeholder="Pin Code" [(ngModel)]="newOrg.address.postcode" [value]=newOrg.address.postcode (keypress)="loadMap()">
+  </mat-form-field> -->
     </div>
 
     <div id="rightcolumn" style="color:black;">
