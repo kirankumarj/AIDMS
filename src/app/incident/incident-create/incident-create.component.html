@@ -1,101 +1,91 @@
+<div id="wrapper">
+    <div id="leftcolumn">
+        <mat-accordion class="example-headers-align">
+            <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Incident
+                </mat-panel-title>
+                <mat-panel-description>
+                  Enter Incident Details
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="example-container">
+                  <mat-form-field>
+                      <mat-select placeholder="Type of Incident" (selectionChange)="changeIncidentType(incidentTypeVal.value)" #incidentTypeVal>
+                        <mat-option value="accident">Accident</mat-option>
+                        <mat-option value="fire">Fire</mat-option>
+                        <mat-option value="floods">Floods</mat-option>
+                        <mat-option value="earthquake">Earthquake</mat-option>
+                        <mat-option value="heatwave">Heatwave</mat-option>
+                        <mat-option value="other">Other..</mat-option>
+                      </mat-select>
+                    </mat-form-field>
 
-<mat-accordion class="example-headers-align">
-    <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Create Incident
-        </mat-panel-title>
-        <mat-panel-description>
-          Please fill the all details
-          <!-- <mat-icon>account_circle</mat-icon> -->
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <div class="example-container">
-      <mat-form-field>
-        <input matInput placeholder="Incident Id" [(ngModel)]="newIncident.id" [value]=newIncident.id>
-      </mat-form-field>
+              <mat-form-field>
+                <input matInput placeholder="Incident Name" [(ngModel)]="newIncident.name" [value]=newIncident.name>
+              </mat-form-field>
 
-      <mat-form-field>
-        <input matInput placeholder="Incident Name" [(ngModel)]="newIncident.name" [value]=newIncident.name>
-      </mat-form-field>
+              <mat-form-field>
+                <mat-select placeholder="Select Priority" (selectionChange)="changePriority(priorityVal.value)" #priorityVal>
+                  <mat-option value="High">High</mat-option>
+                  <mat-option value="Medium">Medium</mat-option>
+                  <mat-option value="Low">Low</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput placeholder="Incident info" [(ngModel)]="newIncident.info" [value]=newIncident.info>
+              </mat-form-field>
+            </div>
 
-      <mat-form-field>
-        <mat-select placeholder="Select Priority" (selectionChange)="changePriority(priorityVal.value)" #priorityVal>
-          <mat-option value="High">High</mat-option>
-          <mat-option value="Medium">Medium</mat-option>
-          <mat-option value="Low">Low</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput placeholder="Incident type" [(ngModel)]="newIncident.type" [value]=newIncident.type>
-      </mat-form-field>
+              <mat-action-row>
+                <button mat-button color="primary" (click)="nextStep()">Next</button>
+              </mat-action-row>
+            </mat-expansion-panel>
 
-      <mat-form-field>
-        <input matInput placeholder="Incident info" [(ngModel)]="newIncident.info" [value]=newIncident.info>
-      </mat-form-field>
 
-      <mat-action-row>
-        <button mat-button color="primary" (click)="nextStep()">Next</button>
-      </mat-action-row>
+
+            <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Map Location
+                </mat-panel-title>
+                <mat-panel-description>
+                  Map location Details
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+                  <mat-form-field>
+                      <input matInput type="text" placeholder="City" [(ngModel)]="newIncident.address.city" [value]=newIncident.address.city (keypress)="loadMap()">
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput type="text" placeholder="state district" [(ngModel)]="newIncident.address.state_district" [value]=newIncident.address.state_district (keypress)="loadMap()">
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput type="text" placeholder="State" [(ngModel)]="newIncident.address.state" [value]=newIncident.address.state (keypress)="loadMap()">
+                  </mat-form-field>
+                  <mat-form-field>
+                      <input matInput type="text" placeholder="Country" [(ngModel)]="newIncident.address.country" [value]=newIncident.address.country (keypress)="loadMap()">
+                  </mat-form-field>
+                  <mat-form-field>
+                      <input matInput type="text" placeholder="Pin Code" [(ngModel)]="newIncident.address.postcode" [value]=newIncident.address.postcode (keypress)="loadMap()">
+                  </mat-form-field>
+
+              <mat-action-row>
+                <button mat-button color="warn" (click)="prevStep()">Previous</button>
+                <button mat-button color="primary" (click)="saveIncident()">Save</button>
+              </mat-action-row>
+            </mat-expansion-panel>
+          </mat-accordion>
     </div>
-    </mat-expansion-panel>
 
-    <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Destination
-        </mat-panel-title>
-        <mat-panel-description>
-          Type the country name
-          <mat-icon>map</mat-icon>
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <mat-action-row>
-        <button mat-button color="warn" (click)="prevStep()">Previous</button>
-        <button mat-button color="primary" (click)="nextStep()">Next</button>
-      </mat-action-row>
-    </mat-expansion-panel>
 
-    <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
-
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Map Location
-        </mat-panel-title>
-        <mat-panel-description>
-          Please select Incident location
-          <div style="float: left;">
-              left
+    <div id="rightcolumn" style="color:black;">
+          <div id="map" class="container"></div>
+          <div id="search">
+              <input type="text" (keyup)="searchMapLocationBySearchData()" id="mapSearch" [(ngModel)]="searchAddress" type="text" name="addr" value="" id="addr" size="10" placeholder="Search location"/>
+              <div *ngFor="let addressDetails of address">
+                <div (click)="moveMap(addressDetails)" style="border: 1px solid black; margin: 0.5 px;">{{addressDetails.display_name}}</div>
+               </div>
             </div>
-            <div style="float: left;">
-              right
-            </div>
-          <!-- <mat-icon>date_range</mat-icon> -->
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-
-      <!-- <mat-form-field>
-        <input matInput placeholder="Date" [matDatepicker]="picker" (focus)="picker.open()" readonly>
-      </mat-form-field>
-      <mat-datepicker #picker></mat-datepicker> -->
-      <!-- <mat-form-field>
-          <input matInput placeholder="Country">
-      </mat-form-field> -->
-      <!-- <mat-form-field>
-          <input matInput type="number" placeholder="Latitude" [(ngModel)]="newIncident.latitude" [value]=newIncident.latitude (keypress)="loadMap()">
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput type="number" placeholder="Longitude" [(ngModel)]="newIncident.longitude" [value]=newIncident.longitude (keypress)="loadMap()">
-          </mat-form-field> -->
-
-
-      <div id="map" class="container" style="widows: 200px; height: 200px;"></div>
-
-      <mat-action-row>
-        <button mat-button color="warn" (click)="prevStep()">Previous</button>
-        <button mat-button color="primary" (click)="saveOrg()">Save</button>
-      </mat-action-row>
-    </mat-expansion-panel>
-
-  </mat-accordion>
-
+    </div>
+  </div>

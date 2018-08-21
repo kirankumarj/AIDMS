@@ -23,6 +23,7 @@ import { AssertViewComponent } from './assert/assert-view/assert-view.component'
 import { CreateAssetsComponent } from './new-assets/create-assets/create-assets.component';
 import { ViewAssetsComponent } from './new-assets/view-assets/view-assets.component';
 
+import { IncidentProcessComponent } from './incident/incident-process/incident-process.component';
 
 
 const routes: Routes = [
@@ -42,6 +43,8 @@ const routes: Routes = [
   { path: 'assert-create', component: CreateAssetsComponent},
   // { path: 'assert-view', component: AssertViewComponent},
   { path: 'assert-view', component: ViewAssetsComponent},
+  { path: 'assert-view', component: AssertViewComponent},
+  { path: 'incident-process', component: IncidentProcessComponent}
 
 ];
 

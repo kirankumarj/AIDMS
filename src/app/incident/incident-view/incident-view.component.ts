@@ -5,6 +5,7 @@ import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { OrgMapInfo } from '../../models/organization/OrgMapInfo';
 
 import * as maptalks from 'maptalks';
+import { Router } from '../../../../node_modules/@angular/router';
 
 
 @Component({
@@ -13,7 +14,7 @@ import * as maptalks from 'maptalks';
   styleUrls: ['./incident-view.component.css']
 })
 export class IncidentViewComponent implements AfterViewInit, OnInit {
-  displayedColumns: string[] = ['id', 'name', 'type', 'info'];
+  displayedColumns: string[] = ['type', 'name', 'status', 'priority'];
   dataSource;
   incidents;
   mapSelcted = '';
@@ -21,9 +22,10 @@ export class IncidentViewComponent implements AfterViewInit, OnInit {
   layer;
   map;
   marker;
+  filterSize = false;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private service: InfoService) {
+  constructor(private service: InfoService, private router: Router) {
   }
 
   ngOnInit() {
@@ -40,6 +42,7 @@ export class IncidentViewComponent implements AfterViewInit, OnInit {
     console.log(incident);
   }
   animateMap(element) {
+    // this.router.navigate(['incident-process']);
     console.log(element);
       setTimeout( ( ) => {
         this.map.animateTo({
@@ -165,4 +168,16 @@ export class IncidentViewComponent implements AfterViewInit, OnInit {
     .addTo(this.map);
 
   }
+
+  filterOrgInfo(value) {
+    this.dataSource.filter = value.trim().toLowerCase();
+    this.map.removeLayer(this.layer);
+    this.layer = new maptalks.VectorLayer('vector').addTo(this.map);
+    this.applyMarkers(this.dataSource.filteredData);
+    if (this.dataSource.filteredData.length === 0) {
+      this.filterSize = true;
+    } else {
+      this.filterSize = false;
+    }
+}
 }

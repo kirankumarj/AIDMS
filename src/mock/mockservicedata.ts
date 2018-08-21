@@ -60,7 +60,9 @@ export const mockData = {
       'latitude': -0.12066,
       'longitude': 51.498568,
       'info': 'InfoIncident1',
-      'type': 'fire'
+      'type': 'fire',
+      'priority': 'low',
+      'status': 'In-Progress'
     },
     {
       'id' : '0002',
@@ -68,7 +70,9 @@ export const mockData = {
       'latitude': -0.14161,
       'longitude': 51.49509,
       'info': 'Floods',
-      'type': 'floods'
+      'type': 'floods',
+      'priority': 'High',
+      'status': 'open'
     },
     {
       'id' : '0003',
@@ -76,7 +80,9 @@ export const mockData = {
       'latitude': -0.14161,
       'longitude': 51.20509,
       'info': 'InfoIncident3',
-      'type': 'accident'
+      'type': 'accident',
+      'priority': 'low',
+      'status': 'open'
     },
     {
       'id' : '0004',
@@ -84,7 +90,9 @@ export const mockData = {
       'latitude': -0.14161,
       'longitude': 41.49509,
       'info': 'InfoIncident4',
-      'type': 'fire'
+      'type': 'fire',
+      'priority': 'low',
+      'status': 'Closed'
     },
     {
       'id' : '0005',
@@ -92,7 +100,9 @@ export const mockData = {
       'latitude': -0.14161,
       'longitude': 51.10509,
       'info': 'earthquake',
-      'type': 'earthquake'
+      'type': 'earthquake',
+      'priority': 'HIgh',
+      'status': 'Open'
     },
     {
       'id' : '0006',
@@ -100,7 +110,9 @@ export const mockData = {
       'latitude': -0.13461,
       'longitude': 51.49509,
       'info': 'InfoIncident6',
-      'type': 'fire'
+      'type': 'fire',
+      'priority': 'low',
+      'status': 'Open'
     },
     {
       'id' : '0007',
@@ -108,7 +120,9 @@ export const mockData = {
       'latitude': -1.14161,
       'longitude': 41.49509,
       'info': 'InfoIncident7',
-      'type': 'fire'
+      'type': 'fire',
+      'priority': 'Medium',
+      'status': 'Closed'
     },
     {
       'id' : '0008',
@@ -116,7 +130,9 @@ export const mockData = {
       'latitude': -1.24161,
       'longitude': 51.10509,
       'info': 'InfoIncident8',
-      'type': 'accident'
+      'type': 'accident',
+      'priority': 'low',
+      'status': 'In-Progress'
     },
     {
       'id' : '0009',
@@ -124,7 +140,9 @@ export const mockData = {
       'latitude': -1.25461,
       'longitude': 51.49509,
       'info': 'InfoIncident9',
-      'type': 'fire'
+      'type': 'fire',
+      'priority': 'High',
+      'status': 'Closed'
     }
   ]
 

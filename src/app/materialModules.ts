@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 import {
   MatButtonModule,
@@ -40,7 +41,8 @@ const module = [
   MatSnackBarModule,
   MatIconModule,
   MatDialogModule,
-  MatSelectModule
+  MatSelectModule,
+  MatProgressBarModule
 ];
 @NgModule({
   declarations: [

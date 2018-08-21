@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InfoService } from './info.service';
 import {OrganizationService } from './services/organization.service';
 import {RestService } from './services/rest.service';
@@ -61,6 +61,8 @@ import { AssetsEffects } from './new-assets/store/assets.effects';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ViewAssetsComponent } from './new-assets/view-assets/view-assets.component';
 
+import { CommonModule} from '@angular/common';
+import { IncidentProcessComponent } from './incident/incident-process/incident-process.component';
 
 
 // const module = [
@@ -103,7 +105,8 @@ import { ViewAssetsComponent } from './new-assets/view-assets/view-assets.compon
     ShelterViewComponent,
     CreateAssetsComponent,
     DashboardComponent,
-    ViewAssetsComponent
+    ViewAssetsComponent,
+    IncidentProcessComponent
   ],
   imports: [
     BrowserModule,
@@ -112,9 +115,10 @@ import { ViewAssetsComponent } from './new-assets/view-assets/view-assets.compon
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
+    CommonModule,
     AppRoutingModule,
     StoreModule.forRoot(AllReducers),
-    EffectsModule.forRoot([OrgnizationEffects,AssetsEffects]),
+    EffectsModule.forRoot([OrgnizationEffects, AssetsEffects]),
     StoreDevtoolsModule.instrument(
      {
        maxAge: 25
@@ -129,7 +133,7 @@ import { ViewAssetsComponent } from './new-assets/view-assets/view-assets.compon
     OverlayDeleteComponent,
     OverlayUpdateOrgComponent
   ],
-  providers: [ InfoService, RestService, OrganizationService ,AssetsService],
+  providers: [ InfoService, RestService, OrganizationService, AssetsService],
   bootstrap: [AppComponent],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

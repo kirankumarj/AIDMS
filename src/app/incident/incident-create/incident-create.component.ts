@@ -12,6 +12,7 @@ import { PopupComponent } from '../../popup/popup.component';
   styleUrls: ['./incident-create.component.css']
 })
 export class IncidentCreateComponent implements OnInit, AfterViewInit {
+  searchAddress;
   step = 0;
   organizations: OrgMapInfo[];
   newIncident = {
@@ -21,14 +22,23 @@ export class IncidentCreateComponent implements OnInit, AfterViewInit {
     info: '',
     latitude: 0,
     longitude: 0,
-    priority: ''
+    priority: '',
+    status: 'Open',
+    address: {
+      city: '',
+      country: '',
+      postcode: '',
+      state: '',
+      state_district: ''
+    }
   };
-
+  address;
   incidents = [];
   map;
   extent;
   center;
   mapStatus;
+  addressInfo;
   constructor(private service: InfoService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
@@ -43,7 +53,17 @@ export class IncidentCreateComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.loadMap();
+    window.navigator.geolocation.getCurrentPosition((location) => {
+      this.newIncident.latitude = location.coords.longitude;
+      this.newIncident.longitude  = location.coords.latitude;
+      this.service.getMapLocationDataByLL(this.newIncident.latitude, this.newIncident.longitude).
+        subscribe((res) => {
+          this.addressInfo = res;
+          this.loadMap();
+          this.mapValues(this.addressInfo, this.newIncident.address);
+        });
+      }
+  );
   }
 
 
@@ -60,7 +80,7 @@ export class IncidentCreateComponent implements OnInit, AfterViewInit {
   }
 
   loadMap() {
-    const map = new maptalks.Map('map', {
+    this.map = new maptalks.Map('map', {
       center: [this.newIncident.latitude, this.newIncident.longitude],
       zoom: 14,
       centerCross: true,
@@ -71,44 +91,31 @@ export class IncidentCreateComponent implements OnInit, AfterViewInit {
       })
     });
     const ref = this;
-    map.on('zoomend moving moveend', getStatus);
-
-    getStatus();
-
-    function getStatus() {
-      const extent = map.getExtent(),
-        ex = [
-          '{',
-          'xmin:' + extent.xmin.toFixed(5),
-          ', ymin:' + extent.ymin.toFixed(5),
-          ', xmax:' + extent.xmax.toFixed(5),
-          ', ymax:' + extent.xmax.toFixed(5),
-          '}'
-        ].join('');
-        const center = map.getCenter();
-      const mapStatus = [
-        'Center : [' + [center.x.toFixed(5), center.y.toFixed(5)].join() + ']',
-        'Extent : ' + ex,
-        'Size : ' + map.getSize().toArray().join(),
-        'Zoom : '   + map.getZoom(),
-        'MinZoom : ' + map.getMinZoom(),
-        'MaxZoom : ' + map.getMaxZoom(),
-        'Projection : ' + map.getProjection().code
-      ];
-       ref.newIncident.latitude =  parseFloat(center.x.toFixed(4));
-       ref.newIncident.longitude = parseFloat(center.y.toFixed(4));
-    console.log(mapStatus);
-    }
+    this.map.on('zoomend moveend', () => {
+      this.getStatus();
+    });
 
   }
 
-  saveOrg() {
+   getStatus() {
+        this.center = this.map.getCenter();
+       this.newIncident.latitude =  parseFloat(this.center.x.toFixed(5));
+       this.newIncident.longitude = parseFloat(this.center.y.toFixed(5));
+       this.service.getMapLocationDataByLL(this.newIncident.latitude, this.newIncident.longitude).
+        subscribe((res) => {
+          this.addressInfo = res;
+          this.mapValues(this.addressInfo, this.newIncident.address);
+        });
+    }
+
+    saveIncident() {
     console.log(this.incidents);
     console.log(this.newIncident);
     this.incidents.push(this.newIncident);
     this.service.saveIncident(this.incidents);
     this.snackBar.openFromComponent( PopupComponent, {
       duration: 1000,
+      data: 'Saved the Incident Data...!'
     });
     this.step = 0;
   }
@@ -116,8 +123,38 @@ export class IncidentCreateComponent implements OnInit, AfterViewInit {
   changePriority(value) {
     if ( value ) {
       this.newIncident.priority = value;
-      console.log('changed', value);
+      console.log('changed priority', value);
     }
   }
 
+  changeIncidentType(value) {
+    if ( value) {
+      this.newIncident.type = value;
+      console.log('changed type', value);
+    }
+  }
+  searchMapLocationBySearchData() {
+    this.service.getMapLocationData(this.searchAddress).subscribe((res) => {
+      this.address = res;
+    });
+  }
+
+  moveMap(addresDetails) {
+    this.newIncident.latitude =  parseFloat(addresDetails.lon);
+    this.newIncident.longitude = parseFloat(addresDetails.lat);
+    this.map.remove();
+    this.loadMap();
+    this.mapValues(addresDetails, this.newIncident.address);
+    this.address = [];
+  }
+
+  mapValues(fromAddress, toAddress) {
+    this.searchAddress = fromAddress.display_name;
+    toAddress.city = fromAddress.address.city;
+    toAddress.state = fromAddress.address.state;
+    toAddress.postcode = fromAddress.address.postcode;
+    toAddress.country = fromAddress.address.country;
+    toAddress.state_district = fromAddress.address.state_district;
+    this.step = 1;
+}
 }

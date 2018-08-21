@@ -12,7 +12,7 @@ describe('IncidentCreateComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ IncidentCreateComponent ],
-      imports:[
+      imports: [
         MaterialModule,
         FormsModule,
         HttpClientModule,
