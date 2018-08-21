@@ -8,14 +8,14 @@
             </mat-panel-title>
           </mat-expansion-panel-header><mat-divider></mat-divider>
           <mat-list role="list">
-              <mat-list-item role="listitem">Open Incidents - 20</mat-list-item>
-              <mat-list-item role="listitem">In-Progress -16</mat-list-item>
-              <mat-list-item role="listitem">Total Resources -100</mat-list-item>
-              <mat-list-item role="listitem">Available Resources -80/100</mat-list-item>
-              <mat-list-item role="listitem">Defective Resources - 20/100</mat-list-item>
-              <mat-list-item role="listitem">Total Assets - 100</mat-list-item>
-              <mat-list-item role="listitem">Available Assets - 50/100</mat-list-item>
-              <mat-list-item role="listitem">Defective Assets - 50/100</mat-list-item>
+              <mat-list-item role="listitem">Open Incidents - {{openIncidents}}</mat-list-item>
+              <mat-list-item role="listitem">In-Progress -{{inProgressIncidents}}</mat-list-item>
+              <mat-list-item role="listitem">Total Resources -{{totalResources}}</mat-list-item>
+              <mat-list-item role="listitem">Available Resources -{{availableResources}}</mat-list-item>
+              <mat-list-item role="listitem">Defective Resources - {{defectiveResources}}</mat-list-item>
+              <mat-list-item role="listitem">Total Assets - {{totalAssets}}</mat-list-item>
+              <mat-list-item role="listitem">Available Assets - {{availableAssets}}</mat-list-item>
+              <mat-list-item role="listitem">Defective Assets - {{defectiveAssets}}</mat-list-item>
           </mat-list>
         </mat-expansion-panel>
 
@@ -28,6 +28,16 @@
             <mat-list role="list">
                 <mat-list-item role="newslistitem">- Huge crowd stock in cyber gateway</mat-list-item>
                 <mat-list-item role="newslistitem">- Rainfall Level Surpassed</mat-list-item>
+            </mat-list>
+          </mat-expansion-panel>
+          <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h4>Notifications</h4><mat-icon>notifications</mat-icon>
+              </mat-panel-title>
+            </mat-expansion-panel-header><mat-divider></mat-divider>
+            <mat-list role="list">
+                <mat-list-item role="newslistitem">No Notifications Found</mat-list-item>
             </mat-list>
           </mat-expansion-panel>
       </mat-accordion>

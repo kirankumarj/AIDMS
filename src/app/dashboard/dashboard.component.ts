@@ -5,6 +5,9 @@ import { PopupComponent } from '../popup/popup.component';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import {AppState} from '../app.state';
+import { Store } from '@ngrx/store';
+import * as dashboardAction from '././store-dashboard/dashboard.actions';
+
 
 
 @Component({
@@ -14,6 +17,14 @@ import {AppState} from '../app.state';
 })
 export class DashboardComponent implements OnInit, AfterViewInit {
 
+  openIncidents:any;
+  inProgressIncidents:any;
+  totalResources:any;
+  availableResources:any;
+  defectiveResources:any;
+  totalAssets:any;
+  availableAssets:any;
+  defectiveAssets:any;
  
   step = 0;
   searchAddress;
@@ -40,10 +51,46 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     }
   };
 
-  constructor(private service: InfoService) { }
+  constructor(private service: InfoService, private store: Store<AppState>) { }
   ngOnInit() {
     this.newOrg.latitude = 78.498;
     this.newOrg.longitude = 17.476;
+   
+    this.store.dispatch(new dashboardAction.openIncidents());
+    this.store.dispatch(new dashboardAction.inProgressIncidents());
+    
+    this.store.select('openIncidents').subscribe((res)=>{
+      this.openIncidents = res.openIncidents;
+     });
+
+     this.store.select('inProgressIncidents').subscribe((res)=>{
+      this.inProgressIncidents = res.inProgressIncidents;
+     });
+
+     this.store.select('totalResources').subscribe((res)=>{
+      this.totalResources = res.totalResources;
+     });
+
+     this.store.select('availableResources').subscribe((res)=>{
+      this.availableResources = res.availableResources;
+     });
+
+     this.store.select('defectiveResources').subscribe((res)=>{
+      this.defectiveResources = res.defectiveResources;
+     });
+
+     this.store.select('totalAssets').subscribe((res)=>{
+      this.totalAssets = res.totalAssets;
+     });
+
+     this.store.select('availableAssets').subscribe((res)=>{
+      this.availableAssets = res.availableAssets;
+     });
+
+     this.store.select('defectiveAssets').subscribe((res)=>{
+      this.defectiveAssets = res.defectiveAssets;
+     });
+   
   }
   ngAfterViewInit() {
     window.navigator.geolocation.getCurrentPosition((location) => {

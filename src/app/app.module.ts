@@ -9,6 +9,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InfoService } from './info.service';
 import {OrganizationService } from './services/organization.service';
+
 import {RestService } from './services/rest.service';
 import {StoreModule} from '@ngrx/store';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
@@ -60,6 +61,8 @@ import { AssetsService } from './services/assets/assets.service';
 import { AssetsEffects } from './new-assets/store/assets.effects';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ViewAssetsComponent } from './new-assets/view-assets/view-assets.component';
+import {IncidentCountService} from './services/dashboard/incident.service';
+import {DashboardEffects} from './dashboard/store-dashboard/dashboard.effects';
 
 import { CommonModule} from '@angular/common';
 import { IncidentProcessComponent } from './incident/incident-process/incident-process.component';
@@ -118,7 +121,7 @@ import { IncidentProcessComponent } from './incident/incident-process/incident-p
     CommonModule,
     AppRoutingModule,
     StoreModule.forRoot(AllReducers),
-    EffectsModule.forRoot([OrgnizationEffects, AssetsEffects]),
+    EffectsModule.forRoot([OrgnizationEffects,AssetsEffects,DashboardEffects]),
     StoreDevtoolsModule.instrument(
      {
        maxAge: 25
@@ -133,7 +136,7 @@ import { IncidentProcessComponent } from './incident/incident-process/incident-p
     OverlayDeleteComponent,
     OverlayUpdateOrgComponent
   ],
-  providers: [ InfoService, RestService, OrganizationService, AssetsService],
+  providers: [ InfoService, RestService, OrganizationService ,AssetsService, IncidentCountService],
   bootstrap: [AppComponent],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
