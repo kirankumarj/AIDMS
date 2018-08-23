@@ -63,6 +63,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ViewAssetsComponent } from './new-assets/view-assets/view-assets.component';
 import {IncidentCountService} from './services/dashboard/incident.service';
 import {DashboardEffects} from './dashboard/store-dashboard/dashboard.effects';
+import { ResourceEffects } from './resource/store/resource.effects';
+import { ResourceService } from './services/resource.service';
 
 import { CommonModule} from '@angular/common';
 import { IncidentProcessComponent } from './incident/incident-process/incident-process.component';
@@ -121,7 +123,7 @@ import { IncidentProcessComponent } from './incident/incident-process/incident-p
     CommonModule,
     AppRoutingModule,
     StoreModule.forRoot(AllReducers),
-    EffectsModule.forRoot([OrgnizationEffects,AssetsEffects,DashboardEffects]),
+    EffectsModule.forRoot([OrgnizationEffects,AssetsEffects,DashboardEffects, ResourceEffects]),
     StoreDevtoolsModule.instrument(
      {
        maxAge: 25
@@ -136,7 +138,7 @@ import { IncidentProcessComponent } from './incident/incident-process/incident-p
     OverlayDeleteComponent,
     OverlayUpdateOrgComponent
   ],
-  providers: [ InfoService, RestService, OrganizationService ,AssetsService, IncidentCountService],
+  providers: [ InfoService, RestService, OrganizationService ,AssetsService, IncidentCountService, ResourceService],
   bootstrap: [AppComponent],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
