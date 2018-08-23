@@ -11,6 +11,8 @@ export interface State {
   availableAssets:any;
   defectiveAssets:any;
   message:string;
+  liveNewsFeed:any;
+  notifications:any;
 }
 
 export const initialState: State = {
@@ -22,7 +24,25 @@ export const initialState: State = {
   totalAssets:0,
   availableAssets:0,
   defectiveAssets:0,
-  message: ''
+  message: '',
+  liveNewsFeed: [{
+    news: 'Rainfall over Kerala during Monsoon Season-2018 and forecast for next 5 days',
+  },
+  {
+    news: 'Ministry of Earth Sciences to set up a Cyclone Warning Centre in Thiruvananthapuram',
+  },
+  {
+    news: 'Indian International Science Festival 2018',
+  }],
+  notifications: [{
+    notify: 'Fire accident at Madhapur metro station',
+  },
+  {
+    notify: 'Heavy rainfall in Kerala',
+  },
+  {
+    notify: 'Bomb blast in hyderabad',
+  }]
 };
 
 export function reducer(state = initialState, action: DashboardActionTypes.DashboardActions):any {
@@ -68,6 +88,16 @@ export function reducer(state = initialState, action: DashboardActionTypes.Dashb
         message: 'Success'
         };
 
+      case DashboardActionTypes.LIVE_NEWS_FEED_SUCCESS:
+        return {
+        //liveNewsFeed: action.liveNews
+        };
+
+      case DashboardActionTypes.NOTIFICATIONS_SUCCESS:
+          return {
+          //notifications: action.notificationNews
+          };
+        
     default:
       return state;
     }

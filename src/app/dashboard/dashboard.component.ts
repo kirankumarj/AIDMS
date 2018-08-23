@@ -25,6 +25,19 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   totalAssets:any;
   availableAssets:any;
   defectiveAssets:any;
+  liveNewsFeed:any;
+  notifications:any;
+  /*liveNewsFeed = [
+    {
+      news: '- Huge crowd stock in cyber gateway',
+    },
+    {
+      news: '- Rainfall Level Surpassed',
+    },
+    {
+      news: '- Fire Accident near Madhapur',
+    }
+  ];*/
  
   step = 0;
   searchAddress;
@@ -58,6 +71,16 @@ export class DashboardComponent implements OnInit, AfterViewInit {
    
     this.store.dispatch(new dashboardAction.openIncidents());
     this.store.dispatch(new dashboardAction.inProgressIncidents());
+    this.store.dispatch(new dashboardAction.totalResources());
+    this.store.dispatch(new dashboardAction.availableResources());
+    this.store.dispatch(new dashboardAction.defectiveResources());
+    this.store.dispatch(new dashboardAction.totalAssets());
+    this.store.dispatch(new dashboardAction.availableAssets());
+    this.store.dispatch(new dashboardAction.defectiveAssets());
+    this.store.dispatch(new dashboardAction.liveNewsFeed());
+    this.store.dispatch(new dashboardAction.notifications());
+    
+
     
     this.store.select('openIncidents').subscribe((res)=>{
       this.openIncidents = res.openIncidents;
@@ -91,6 +114,15 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       this.defectiveAssets = res.defectiveAssets;
      });
    
+     this.store.select('liveNewsFeed').subscribe((res)=>{
+      this.liveNewsFeed = res.liveNewsFeed;
+     });
+
+     this.store.select('notifications').subscribe((res)=>{
+       console.log(res);
+      this.notifications = res.notifications;
+     });
+
   }
   ngAfterViewInit() {
     window.navigator.geolocation.getCurrentPosition((location) => {

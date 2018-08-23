@@ -3,25 +3,25 @@
 
 .container{
   width:100%;
-  height: 540px;
+  height: 590px;
 }
 
 #wrapper {
   margin: 0 auto;
 }
 #leftcolumn, #rightcolumn {
- border: 1px solid grey;
+ border: 3px solid #777;
  float: left;
  min-height: 450px;
  color: black;
 }
 #leftcolumn {
-  width: 550px;
+  width: 335px;
   background-color: #777;
-  height: 540px;
+  height: 590px;
 }
 #rightcolumn {
-  width: 650px;
+  width: 630px;
   background-color:black;
 }
 
@@ -44,3 +44,35 @@ div#search {
     font-size: 15px;
 }
 
+.blinking{
+	animation:blinkingText 0.8s infinite;
+}
+@keyframes blinkingText{
+	50%{		color: rgb(248, 4, 4);	}
+}
+
+
+.notification-icon{
+	animation:notify 0.8s infinite;
+}
+@keyframes notify{
+	0%{		color: rgb(248, 4, 4);	}
+	99%{	color:transparent;	}
+	100%{	color: #000;	}
+}
+
+.mat-list-item-custom {
+  height:39px; font-size: 12px;
+}
+.mat-card-custom {
+  padding: 8px;
+  color:black;
+  height: 272px;
+  padding-top: 1px; border: 6px solid #ecafaf; border-radius: 19px;
+}
+.marquee-custom {
+  height:190px; width: 290px;
+}
+.mat-card-status {
+  padding-top: 1px; color:black; height:93%;  padding-top: 1px; border: 6px solid #ecafaf; border-radius: 19px;
+}

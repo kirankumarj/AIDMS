@@ -67,6 +67,19 @@ export class DashboardEffects {
       map(res =>new DashboardActionTypes.getdefectiveAssetsSuccess(res))
   )
 
+  @Effect()
+  getLiveNewsFeed$:Observable<Action>=this.actions$
+  .ofType(DashboardActionTypes.LIVE_NEWS_FEED)
+  .pipe(switchMap(()=>this.inc.getLiveNewsFeed()),
+      map(res =>new DashboardActionTypes.getliveNewsFeedSuccess(res))
+  )
+
+  @Effect()
+  getNotifications$:Observable<Action>=this.actions$
+  .ofType(DashboardActionTypes.NOTIFICATIONS)
+  .pipe(switchMap(()=>this.inc.getNotification()),
+      map(res =>new DashboardActionTypes.getNotificationsSuccess(res))
+  )
   */
 
 }

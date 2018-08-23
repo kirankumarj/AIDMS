@@ -1,12 +1,7 @@
 <div id="wrapper">
   <div id="leftcolumn">
-      <mat-accordion class="example-headers-align">
-      <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <h4>Availabilty Status</h4>
-            </mat-panel-title>
-          </mat-expansion-panel-header><mat-divider></mat-divider>
+      <mat-card class="mat-card-status">
+          <mat-card-subtitle style="color:black"><h4>Availabilty Status</h4></mat-card-subtitle><mat-divider></mat-divider>
           <mat-list role="list">
               <mat-list-item role="listitem">Open Incidents - {{openIncidents}}</mat-list-item>
               <mat-list-item role="listitem">In-Progress -{{inProgressIncidents}}</mat-list-item>
@@ -17,30 +12,31 @@
               <mat-list-item role="listitem">Available Assets - {{availableAssets}}</mat-list-item>
               <mat-list-item role="listitem">Defective Assets - {{defectiveAssets}}</mat-list-item>
           </mat-list>
-        </mat-expansion-panel>
+        </mat-card>   
+  </div>
+  <div id="leftcolumn">
+         <mat-card class="mat-card-custom">
+            <mat-card-subtitle style="color:black"><h4><span class="blinking">Live News Feeds</span></h4></mat-card-subtitle><mat-divider></mat-divider>
+            <marquee behavior="scroll" direction="up" scrollamount="3" class="marquee-custom" onmouseover="this.stop();" onmouseout="this.start();">
+              <mat-list role="list">
+                  <mat-list-item class="mat-list-item-custom" *ngFor="let data of liveNewsFeed">
+                      <a href="" mat-wrap>{{data.news}}</a>
+                  </mat-list-item>
+              </mat-list>
+            </marquee>
+        </mat-card>
 
-        <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)">
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                <h4>Live News Feeds</h4>
-              </mat-panel-title>
-            </mat-expansion-panel-header><mat-divider></mat-divider>
-            <mat-list role="list">
-                <mat-list-item role="newslistitem">- Huge crowd stock in cyber gateway</mat-list-item>
-                <mat-list-item role="newslistitem">- Rainfall Level Surpassed</mat-list-item>
+        <mat-card class="mat-card-custom">
+              <mat-card-subtitle style="color:black"><h4>Notifications<mat-icon style="color:red"><span class="notification-icon">notifications</span></mat-icon></h4></mat-card-subtitle><mat-divider></mat-divider>
+              <marquee behavior="scroll" direction="up" scrollamount="4" class="marquee-custom" onmouseover="this.stop();" onmouseout="this.start();">
+              <mat-list role="list">
+                  <mat-list-item class="mat-list-item-custom" *ngFor="let data of notifications">
+                      <a href="" mat-wrap>{{data.notify}}</a>
+                  </mat-list-item>
             </mat-list>
-          </mat-expansion-panel>
-          <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)">
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                <h4>Notifications</h4><mat-icon>notifications</mat-icon>
-              </mat-panel-title>
-            </mat-expansion-panel-header><mat-divider></mat-divider>
-            <mat-list role="list">
-                <mat-list-item role="newslistitem">No Notifications Found</mat-list-item>
-            </mat-list>
-          </mat-expansion-panel>
-      </mat-accordion>
+          </marquee>
+          </mat-card>
+
   </div>
   <div id="rightcolumn" style="color:black;">
         <div id="map" class="container"></div>
@@ -52,7 +48,3 @@
           </div>
   </div>
 </div>
-
-
-
-

@@ -24,6 +24,13 @@ import { Action } from '@ngrx/store';
   export const DEFECTIVE_ASSETS = '[DefectiveAssets] Load DefectiveAssets';
   export const DEFECTIVE_ASSETS_SUCCESS = '[DefectiveAssetsSuccess] Load DefectiveAssetsSuccess';
 
+  export const LIVE_NEWS_FEED = '[LiveNewsFeed] Load LiveNewsFeed';
+  export const LIVE_NEWS_FEED_SUCCESS = '[LiveNewsFeedSuccess] Load LiveNewsFeedSuccess';
+
+  export const NOTIFICATIONS = '[Notifications] Load Notifications';
+  export const NOTIFICATIONS_SUCCESS = '[NotificationsSuccess] Load NotificationsSuccess';
+
+
 
 export class openIncidents implements Action {
   readonly type = OPEN_INCIDENTS;
@@ -43,7 +50,7 @@ export class getInProgressIncidentsSuccess implements Action {
   }
 }
 
-export class totalResource implements Action {
+export class totalResources implements Action {
   readonly type = TOTAL_RESOURCES;
 }
 export class getTotalResourceSuccess implements Action {
@@ -52,7 +59,7 @@ export class getTotalResourceSuccess implements Action {
     }
 }
 
-export class availableResource implements Action {
+export class availableResources implements Action {
   readonly type = AVAILABLE_RESOURCES;
 }
 export class getAvailableResourceSuccess implements Action {
@@ -61,7 +68,7 @@ export class getAvailableResourceSuccess implements Action {
     }
 }
 
-export class defectiveResource implements Action {
+export class defectiveResources implements Action {
   readonly type = DEFECTIVE_RESOURCES;
 }
 export class getdefectiveResourceSuccess implements Action {
@@ -97,20 +104,42 @@ export class getdefectiveAssetsSuccess implements Action {
     }
 }
 
+export class liveNewsFeed implements Action {
+  readonly type = LIVE_NEWS_FEED;
+}
+export class getliveNewsFeedSuccess implements Action {
+    readonly type = LIVE_NEWS_FEED_SUCCESS;
+    constructor(public liveNews: any) {
+    }
+}
+
+export class notifications implements Action {
+  readonly type = NOTIFICATIONS;
+}
+export class getNotificationsSuccess implements Action {
+    readonly type = NOTIFICATIONS_SUCCESS;
+    constructor(public notificationNews: any) {
+    }
+}
+
 export type DashboardActions = 
 openIncidents | 
 getOpenIncidentsCountSuccess |
 inProgressIncidents |
 getInProgressIncidentsSuccess |
-totalResource |
+totalResources |
 getTotalResourceSuccess |
-availableResource |
+availableResources |
 getAvailableResourceSuccess |
-defectiveResource |
+defectiveResources |
 getdefectiveResourceSuccess |
 totalAssets |
 gettotalAssetsSuccess |
 availableAssets |
 getavailableAssetsSuccess |
 defectiveAssets |
-getdefectiveAssetsSuccess;
+getdefectiveAssetsSuccess |
+liveNewsFeed |
+getliveNewsFeedSuccess |
+notifications |
+getNotificationsSuccess;

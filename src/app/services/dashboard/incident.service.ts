@@ -42,4 +42,12 @@ export class IncidentCountService {
     return this.restService.findAll(AppConstants.GET_DEFECTIVE_ASSETS);
   }
 
+  public getLiveNewsFeed(): Observable<any> {
+    return this.restService.findAll(AppConstants.GET_LIVE_NEWS_FEED);
+  }
+
+  public getNotification(): Observable<any> {
+    return this.restService.findAll(AppConstants.GET_NOTIFICATIONS);
+  }
+
 }

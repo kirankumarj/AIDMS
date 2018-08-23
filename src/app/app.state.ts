@@ -14,4 +14,6 @@ export interface AppState{
     totalAssets:fromdashboard.State;
     availableAssets:fromdashboard.State;
     defectiveAssets:fromdashboard.State;
+    liveNewsFeed:fromdashboard.State;
+    notifications:fromdashboard.State;
 }
