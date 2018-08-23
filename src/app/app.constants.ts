@@ -19,4 +19,8 @@ export class AppConstants {
   };
   public static CATEGORIES_URI=`${AppConstants.QDMP_URI}/categories`;
   public static ASSETS=`${AppConstants.QDMP_URI}/assets`;
+   public static SHELTER_URL = AppConstants.QDMP_URI + 'dmshleter';
+  public static DELETE_SHELTER = function (shelterId: string) {
+    return AppConstants.QDMP_URI + `dmshleter/${shelterId}`;
+  };
 }

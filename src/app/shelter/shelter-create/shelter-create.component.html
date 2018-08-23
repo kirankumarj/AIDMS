@@ -1,3 +1,136 @@
-<p>
-  shelter-create works!
-</p>
+<div id="wrapper">
+    <div id="leftcolumn">
+        <mat-accordion class="example-headers-align">
+            <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Shelter
+                </mat-panel-title>
+                <mat-panel-description>
+                  Enter Shelter Details
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+
+              <mat-form-field>
+                <input matInput required #shelterField="ngModel" placeholder="Shelter Name" [(ngModel)]="newShleter.name" [value]=newShleter.name>
+              </mat-form-field>
+
+              <mat-form-field>
+                  <mat-select required #sheltertypeField="ngModel"  placeholder="Select Shelter Type" [(ngModel)]="newShleter.type" [(value)]="selected">
+                 <mat-option *ngFor="let sheltertype of sheltertypeList" [value]="sheltertype.name">
+                                    {{sheltertype.name}}
+                                  </mat-option>
+                  </mat-select>
+                  </mat-form-field>
+
+                  <mat-form-field>
+                  <mat-select required #shelterstatusField="ngModel" placeholder="Select Status" [(ngModel)]="newShleter.status">
+                   <mat-option *ngFor="let status of statusList" [value]="status.name">
+                                    {{status.name}}
+                                  </mat-option>
+                  </mat-select>
+                  </mat-form-field>
+
+              <mat-action-row>
+                <button mat-button color="primary" (click)="nextStep()">Next</button>
+              </mat-action-row>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Other Details
+                </mat-panel-title>
+                <mat-panel-description>
+                  Enter Capacity & Occupancy
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+
+              <!-- <mat-form-field>
+                  <input matInput placeholder="Organization Id" [(ngModel)]="newOrg.id" [value]=newOrg.id>
+                </mat-form-field> -->
+
+                <mat-form-field>
+                  <input matInput required pattern="[0-9\s]+" #capacityField="ngModel" placeholder="Max Capacity" [(ngModel)]="newShleter.maxCapacity" [value]=newShleter.maxCapacity>
+                  <div *ngIf="capacityField.errors">
+                                        <div [hidden]="!capacityField.errors.pattern">
+                                            <p class="text-danger">
+                                                Please enter valid number
+                                            </p>
+                                        </div>
+                                    </div>
+               
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput required pattern="[0-9\s]+" #occupancyField="ngModel" placeholder="Current Occupancy" [(ngModel)]="newShleter.currentOccupancy" [value]=newShleter.currentOccupancy>
+                <div *ngIf="occupancyField.errors">
+                                        <div [hidden]="!occupancyField.errors.pattern">
+                                            <p class="text-danger">
+                                                Please enter valid number
+                                            </p>
+                                        </div>
+                                    </div>
+                </mat-form-field>
+
+                 <mat-form-field>
+                  <input matInput required #contactField="ngModel" placeholder="Contact" [(ngModel)]="newShleter.contact" [value]=newShleter.contact>
+                </mat-form-field>
+
+              <mat-action-row>
+                <button mat-button color="warn" (click)="prevStep()">Previous</button>
+                <button mat-button color="primary" (click)="nextStep()">Next</button>
+              </mat-action-row>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Map Location
+                </mat-panel-title>
+                <mat-panel-description>
+                  Map location Details
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+                  <mat-form-field>
+                      <input matInput type="text" placeholder="City" [(ngModel)]="newShleter.city" [value]=newShleter.city (keypress)="loadMap()">
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput type="text" placeholder="state district" [(ngModel)]="newShleter.state_district" [value]=newShleter.state_district (keypress)="loadMap()">
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput type="text" placeholder="State" [(ngModel)]="newShleter.state" [value]=newShleter.state (keypress)="loadMap()">
+                  </mat-form-field>
+                  <mat-form-field>
+                      <input matInput type="text" placeholder="Country" [(ngModel)]="newShleter.country" [value]=newShleter.country (keypress)="loadMap()">
+                  </mat-form-field>
+                  <mat-form-field>
+                      <input matInput type="text" placeholder="Pin Code" [(ngModel)]="newShleter.postcode" [value]=newShleter.postcode (keypress)="loadMap()">
+                  </mat-form-field>
+
+              <mat-action-row>
+                <button mat-button color="warn" (click)="prevStep()">Previous</button>
+                <button mat-button color="primary" [disabled]="shelterField.errors || sheltertypeField.errors ||
+                 shelterstatusField.errors|| contactField.errors ||capacityField.errors || occupancyField.errors " (click)="saveShelter()">Save</button>
+              </mat-action-row>
+            </mat-expansion-panel>
+          </mat-accordion>
+    </div>
+
+
+    <div id="rightcolumn" style="color:black;">
+          <div id="map" class="container"></div>
+          <div id="search">
+              <input type="text" (keyup)="searchMapLocationBySearchData()" id="mapSearch" [(ngModel)]="searchAddress" type="text" name="addr" value="" id="addr" size="10" placeholder="Search location"/>
+              <div *ngFor="let addressDetails of address">
+                <div (click)="moveMap(addressDetails)" style="border: 1px solid black; margin: 0.5 px;">{{addressDetails.display_name}}</div>
+               </div>
+            </div>
+    </div>
+  </div>
+
+<ul *ngFor='let article of (articles | async)'>
+    <li>{{article.id}}</li>
+    <li>{{article.name}}</li>
+    <li>{{article.category}}</li>
+
+</ul>

@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import {environment} from '../environments/environment';
 
 import { mockData } from '../mock/mockservicedata';
+import { ShelterMapInfo } from './models/shelter/ShelterMapInfo';
 
 
 @Injectable({
@@ -19,6 +20,7 @@ export class InfoService {
   org = mockData.orgList;
   officesList = mockData.officesList;
   listIncidents = mockData.incidentsList;
+  shelterList =mockData.shelterList;
 
   private maps ;
   mapLocation;
@@ -28,6 +30,9 @@ export class InfoService {
 
   private offices;
   office;
+
+  private shelters;
+  shelter;
 
   constructor(private http: HttpClient) {
 
@@ -43,6 +48,9 @@ export class InfoService {
       this.incident = this.incidents.asObservable();
       this.offices = new BehaviorSubject<any>(this.officesList);
       this.office = this.offices.asObservable();
+      this.shelterList =mockData.shelterList;
+      this.shelters = new BehaviorSubject<any>(this.shelterList);
+      this.shelter = this.shelters.asObservable();
     }
     this.findMapLocationBySearchDataURL = environment.findMapLocationBySearchDataURL;
     this.findMapLocationBySearchLLURL = environment.findMapLocationBySearchLLURL;
@@ -65,6 +73,10 @@ export class InfoService {
 
   getMapLocationDataByLL(latitude , longitude): Observable<any> {
     return this.http.get(this.findMapLocationBySearchLLURL + longitude + '&lon=' + latitude + '&addressdetails=1');
+  }
+
+  saveShelter(shelterMapInfo) {
+    this.maps.next(shelterMapInfo);
   }
 
 }

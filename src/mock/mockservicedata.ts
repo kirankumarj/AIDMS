@@ -144,6 +144,57 @@ export const mockData = {
       'priority': 'High',
       'status': 'Closed'
     }
+  ],
+
+  shelterList : [
+    {
+      'id' : '0001',
+      'name': 'ABC',
+      'latitude': -0.131049,
+      'longitude': 51.498568,
+       'type': 'Permanent',
+      'status':'Open',
+      'maxCapacity':'1000',
+      'currentOccupancy':'200',
+      'contact':'abc@gmail.com,223444',
+      'direction':'north'
+    },
+    {
+      'id' : '0002',
+      'name': 'HELPPING HANDS',
+      'latitude': -0.107049,
+      'longitude': 51.498568,
+      'type': 'Permanent',
+      'status':'Open',
+      'maxCapacity':'1000',
+      'currentOccupancy':'200',
+      'contact':'abc@gmail.com,223444',
+      'direction':'south'
+    },
+    {
+      'id' : '0003',
+      'name': 'TECH',
+      'latitude': -0.131049,
+      'longitude': 51.490568,
+      'type': 'Permanent',
+      'status':'Open',
+      'maxCapacity':'1000',
+      'currentOccupancy':'200',
+      'contact':'abc@gmail.com,223444',
+      'direction':'north'
+    },
+    {
+      'id' : '0004',
+      'name': 'OSI',
+      'latitude': -0.107049,
+      'longitude': 51.490568,
+      'type': 'Permanent',
+      'status':'Open',
+      'maxCapacity':'1000',
+      'currentOccupancy':'200',
+      'contact':'abc@gmail.com,223444',
+      'direction':'west'
+    }
   ]
 
 

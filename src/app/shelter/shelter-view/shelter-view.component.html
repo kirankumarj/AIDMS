@@ -1,3 +1,72 @@
-<p>
-  shelter-view works!
-</p>
+<div id="wrapper">
+  <div id="leftcolumn">
+      <div class="example-container" style="background: white; padding: 10px; margin: 2px;">
+          <mat-form-field>
+            <input matInput #input placeholder="Search Info" (keyup)="filterStatusInfo(input.value)">
+          </mat-form-field>
+        </div>
+      <div class="mat-elevation-z8">
+          <table mat-table [dataSource]="dataSource">
+
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef> Name </th>
+              <td mat-cell *matCellDef="let element" (click)="animateMap(element)"> {{element.name}} </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="type">
+              <th mat-header-cell *matHeaderCellDef> Shelter Type </th>
+              <td mat-cell *matCellDef="let element" (click)="animateMap(element)"> {{element.type}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef> Status </th>
+                <td mat-cell *matCellDef="let element" (click)="animateMap(element)"> {{element.status}} </td>
+            </ng-container>
+
+          <ng-container matColumnDef="maxcapacity">
+              <th mat-header-cell *matHeaderCellDef> Maximum Capacity </th>
+              <td mat-cell *matCellDef="let element" (click)="animateMap(element)"> {{element.maxCapacity}} </td>
+            </ng-container>  
+              <ng-container matColumnDef="currentoccupancy">
+              <th mat-header-cell *matHeaderCellDef> Current Occupancy </th>
+              <td mat-cell *matCellDef="let element" (click)="animateMap(element)"> {{element.currentOccupancy}} </td>
+            </ng-container> 
+             <ng-container matColumnDef="contact">
+              <th mat-header-cell *matHeaderCellDef> Current Occupancy </th>
+              <td mat-cell *matCellDef="let element" (click)="animateMap(element)"> {{element.contact}} </td>
+            </ng-container> 
+
+            <ng-container matColumnDef="action">
+                  <th mat-header-cell *matHeaderCellDef> Action </th>
+               <td mat-cell *matCellDef="let element">
+                 <button mat-icon-button [matMenuTriggerFor]="menu">
+                      <mat-icon>...</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                      <button mat-menu-item (click)="updateRecord(element)">
+                        <span>Update</span>
+                      </button>
+                      <button mat-menu-item (click)="deleteRecord(element)">
+                        <span>Delete</span>
+                      </button>
+                    </mat-menu>
+                  </td>
+            </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+          </table>
+
+          <mat-paginator [pageSizeOptions]="[4, 8]" showFirstLastButtons></mat-paginator>
+        </div>
+  </div>
+  <div id="rightcolumn" style="color:black;">
+      <div id="map" class="container"></div>
+  </div>
+</div>
+
+
+
+
