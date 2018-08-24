@@ -34,7 +34,7 @@ export class ShelterCreateComponent implements OnInit, AfterViewInit {
   addressInfo;
   addressLocation = [];
   newShleter = {
-    id:null,
+    id: null,
     name: '',
     latitude: 0,
     longitude: 0,
@@ -43,12 +43,13 @@ export class ShelterCreateComponent implements OnInit, AfterViewInit {
     maxCapacity: '',
     currentOccupancy: '',
     contact: '',
-      city: '',
-      country: '',
-      postcode: '',
-      state: '',
-      state_district: ''
-    
+    city: '',
+    country: '',
+    postcode: '',
+    state: '',
+    state_district: '',
+    zone: ''
+
   };
   sheltersList = [];
 
@@ -75,16 +76,16 @@ export class ShelterCreateComponent implements OnInit, AfterViewInit {
   ];
 
   shelters$: Observable<ShelterMapInfo[]>;
-	message$: Observable<any>;
+  message$: Observable<any>;
 
   constructor(private service: InfoService, private snackBar: MatSnackBar,
     private shelterService: ShelterService,
-    private store: Store<ShelterState>,private formBuilder: FormBuilder
+    private store: Store<ShelterState>, private formBuilder: FormBuilder
   ) {
 
     this.shelters$ = store.select(fromReducer.getAllShelters);
-		this.message$ = store.select(fromReducer.getMessage);
-   }
+    this.message$ = store.select(fromReducer.getMessage);
+  }
 
   ngOnInit() {
 
@@ -156,7 +157,7 @@ export class ShelterCreateComponent implements OnInit, AfterViewInit {
     this.newShleter.longitude = parseFloat(this.center.y.toFixed(5));
     this.service.getMapLocationDataByLL(this.newShleter.latitude, this.newShleter.longitude).
       subscribe((res) => {
-        console.log("response"+JSON.stringify(res));
+        console.log("response" + JSON.stringify(res));
         this.addressInfo = res;
         this.mapValues(this.addressInfo, this.newShleter);
       });
@@ -169,8 +170,21 @@ export class ShelterCreateComponent implements OnInit, AfterViewInit {
     toAddress.postcode = fromAddress.address.postcode;
     toAddress.country = fromAddress.address.country;
     toAddress.state_district = fromAddress.address.state_district;
+    let zone = '';
+    alert(fromAddress.address.city_district);
+    if (fromAddress.address.city_district.indexOf('West') != -1) {
+      zone = 'west'
+    } else if (fromAddress.address.city_district.indexOf('North') != -1) {
+      zone = 'north'
+    }
+    else if (fromAddress.address.city_district.indexOf('South') != -1) {
+      zone = 'south'
+    }
+    else if (fromAddress.address.city_district.indexOf('East') != -1) {
+      zone = 'east'
+    }
+    toAddress.zone =zone;
     this.step = 2;
-    alert(toAddress.postcode);
   }
 
   moveMap(addresDetails) {
@@ -191,7 +205,7 @@ export class ShelterCreateComponent implements OnInit, AfterViewInit {
       console.log('Mock Data :: Create Org ', this.newShleter);
       this.sheltersList.push(this.newShleter);
       //this.service.saveShelter(this.sheltersList);
-      
+
       this.snackBar.openFromComponent(PopupComponent, {
         duration: 1000,
         data: 'Saved Data...!'
@@ -200,14 +214,14 @@ export class ShelterCreateComponent implements OnInit, AfterViewInit {
     }
   }
 
-  CreatedShelter(shelter: ShelterMapInfo){
+  CreatedShelter(shelter: ShelterMapInfo) {
     this.store.dispatch(new fromActions.AddShelter(shelter));
     this.snackBar.openFromComponent(PopupComponent, {
-        duration: 1000,
-        data: 'Saved Data...!'
-      });
-      this.step = 0;
-	}
+      duration: 1000,
+      data: 'Saved Data...!'
+    });
+    this.step = 0;
+  }
 
   searchMapLocationBySearchData() {
     this.service.getMapLocationData(this.searchAddress).subscribe((res) => {

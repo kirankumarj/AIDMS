@@ -8,4 +8,10 @@ export interface ShelterMapInfo {
   maxCapacity:string;
   currentOccupancy:string;
   contact:string;
+  city: string;
+  country: string;
+  postcode:string;
+  state:string;
+  state_district:string;
+  zone:string;
 }
