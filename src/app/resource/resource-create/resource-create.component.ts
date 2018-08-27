@@ -13,6 +13,7 @@ import {Store} from '@ngrx/store';
 import {AppState} from '../../app.state';
 import { AddResource } from '../store/resource.actions';
 import { Resource } from '../../models/resource';
+import { GetAllOrganization } from '../../org/store/org.actions';
 
 
 @Component({
@@ -22,8 +23,6 @@ import { Resource } from '../../models/resource';
 })
 
 export class ResourceCreateComponent implements OnInit, AfterViewInit {
-  selectedOrg='';
-  selectedDept='';
   resurce: Resource;
   step = 0;
   searchAddress;
@@ -37,7 +36,7 @@ export class ResourceCreateComponent implements OnInit, AfterViewInit {
   addressLocation = [];
   newResource = {
     org: '',
-    department: '',
+    dept: '',
     job: '',
     email: '',
     name: '',
@@ -54,6 +53,7 @@ export class ResourceCreateComponent implements OnInit, AfterViewInit {
     }
   };
   organizationsList = [];
+  resourcesList = [];
   constructor(private service: InfoService, private snackBar: MatSnackBar,
     private organizationService: OrganizationService ,
     private store: Store<AppState>
@@ -144,21 +144,6 @@ mapValues(fromAddress, toAddress) {
     this.mapValues(addresDetails, this.newResource.address);
     this.address = [];
   }
-  saveOrg() {
-    if (environment.isDataAvailableInRealService) {
-      console.log('Hit Service:: Create Resource ', this.newResource);
-      this.createOrganization();
-    } else {
-      console.log('Mock Data :: Create Resource ', this.newResource);
-        this.organizationsList.push(this.newResource);
-        this.service.saveOrganization(this.organizationsList);
-        this.snackBar.openFromComponent(PopupComponent, {
-        duration: 1000,
-        data: 'Saved Data...!'
-      });
-    this.step = 0;
-    }
-  }
 
   saveResource() {
     if (environment.isDataAvailableInRealService) {
@@ -166,8 +151,8 @@ mapValues(fromAddress, toAddress) {
       this.createresource();
     } else {
       console.log('Mock Data :: Create Resource ', this.newResource);
-        this.organizationsList.push(this.newResource);
-        this.service.saveOrganization(this.organizationsList);
+        this.resourcesList.push(this.newResource);
+        this.service.saveResource(this.resourcesList);
         this.snackBar.openFromComponent(PopupComponent, {
         duration: 1000,
         data: 'Saved Data...!'
@@ -181,54 +166,28 @@ mapValues(fromAddress, toAddress) {
     });
   }
 
-  createresource(){
+  createresource() {
     this.store.dispatch(new AddResource(this.newResource));
     this.newResource.name = '';
-    this.newResource.org='';
-    this.newResource.email='';
-    this.newResource.job='';
-    this.newResource.address.city='';
-    this.newResource.address.country='';
-    this.newResource.address.postcode='';
-    this.newResource.address.state='';
-    this.newResource.address.state_district='';
+    this.newResource.org = '';
+    this.newResource.email = '';
+    this.newResource.job = '';
+    this.newResource.address.city = '';
+    this.newResource.address.country = '';
+    this.newResource.address.postcode = '';
+    this.newResource.address.state = '';
+    this.newResource.address.state_district = '';
     this.step = 0;
-    
-
-  }
-  createOrganization() {
-    // this.store.dispatch(new AddOrganization(this.newResource));
-    this.organizationService.createOrganization(this.newResource).subscribe((res) => {
-      // console.log(res);
-      if ( res.id ) {
-        this.snackBar.openFromComponent(PopupComponent, {
-          duration: 1000,
-          data: 'Saved Data...!'
-        });
-        this.step = 0;
-        this.newResource = null;
-        
-      }
-    },
-    error => {
-      this.snackBar.openFromComponent(PopupComponent, {
-        duration: 2000,
-        data: 'Service Error...!'
-      });
-      this.step = 0;
-    });
   }
 
   getAllOrganizations() {
-
-    this.organizationService.getAllOrganizations().subscribe((res) => {
-      this.organizationsList = res;
-      console.log(this.organizationsList);
-    },
-    error => {
+    this.store.dispatch(new GetAllOrganization());
+    this.store.select('organizations').subscribe((res) => {
+      this.organizationsList = res.data;
+    }, error => {
       this.snackBar.openFromComponent(PopupComponent, {
         duration: 3000,
-        data: 'Service Error...!'
+        // data: 'Service Error...!'
       });
       this.step = 0;
     });

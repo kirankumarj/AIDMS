@@ -153,11 +153,11 @@ export const mockData = {
       'latitude': -0.131049,
       'longitude': 51.498568,
        'type': 'Permanent',
-      'status':'Open',
-      'maxCapacity':'1000',
-      'currentOccupancy':'200',
-      'contact':'abc@gmail.com,223444',
-      'direction':'north'
+      'status': 'Open',
+      'maxCapacity': '1000',
+      'currentOccupancy': '200',
+      'contact': 'abc@gmail.com,223444',
+      'direction': 'north'
     },
     {
       'id' : '0002',
@@ -165,11 +165,11 @@ export const mockData = {
       'latitude': -0.107049,
       'longitude': 51.498568,
       'type': 'Permanent',
-      'status':'Open',
-      'maxCapacity':'1000',
-      'currentOccupancy':'200',
-      'contact':'abc@gmail.com,223444',
-      'direction':'south'
+      'status': 'Open',
+      'maxCapacity': '1000',
+      'currentOccupancy': '200',
+      'contact': 'abc@gmail.com,223444',
+      'direction': 'south'
     },
     {
       'id' : '0003',
@@ -177,11 +177,11 @@ export const mockData = {
       'latitude': -0.131049,
       'longitude': 51.490568,
       'type': 'Permanent',
-      'status':'Open',
-      'maxCapacity':'1000',
-      'currentOccupancy':'200',
-      'contact':'abc@gmail.com,223444',
-      'direction':'north'
+      'status': 'Open',
+      'maxCapacity': '1000',
+      'currentOccupancy': '200',
+      'contact': 'abc@gmail.com,223444',
+      'direction': 'north'
     },
     {
       'id' : '0004',
@@ -189,11 +189,32 @@ export const mockData = {
       'latitude': -0.107049,
       'longitude': 51.490568,
       'type': 'Permanent',
-      'status':'Open',
-      'maxCapacity':'1000',
-      'currentOccupancy':'200',
-      'contact':'abc@gmail.com,223444',
-      'direction':'west'
+      'status': 'Open',
+      'maxCapacity': '1000',
+      'currentOccupancy': '200',
+      'contact': 'abc@gmail.com,223444',
+      'direction': 'west'
+    }
+  ],
+  resourceList : [
+    {
+      'id' : '0001',
+      'name': 'ABC',
+      'latitude': -0.131049,
+      'longitude': 51.498568,
+      'dept': 'Health',
+      'job': 'Manager',
+      'email': 'test1@gmail.com',
+    },
+    {
+      'id' : '0002',
+      'org': 'Org1',
+      'dept': 'Health',
+      'job': 'Manager',
+      'email': 'test1@gmail.com',
+      'name': 'XYZ',
+      'latitude': -0.131049,
+      'longitude': 51.498568
     }
   ]
 

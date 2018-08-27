@@ -20,7 +20,8 @@ export class InfoService {
   org = mockData.orgList;
   officesList = mockData.officesList;
   listIncidents = mockData.incidentsList;
-  shelterList =mockData.shelterList;
+  shelterList = mockData.shelterList;
+  resourceList = mockData.resourceList;
 
   private maps ;
   mapLocation;
@@ -34,23 +35,33 @@ export class InfoService {
   private shelters;
   shelter;
 
+  private resources;
+  resource;
+
   constructor(private http: HttpClient) {
 
     if ( environment.isDataAvailableInRealService ) {
 
     } else {
       this.org = mockData.orgList;
-      this.officesList = mockData.officesList;
-      this.listIncidents = mockData.incidentsList;
       this.maps = new BehaviorSubject<any>(this.org);
       this.mapLocation = this.maps.asObservable();
-      this.incidents = new BehaviorSubject<any>(this.listIncidents);
-      this.incident = this.incidents.asObservable();
+
+      this.officesList = mockData.officesList;
       this.offices = new BehaviorSubject<any>(this.officesList);
       this.office = this.offices.asObservable();
-      this.shelterList =mockData.shelterList;
+
+      this.listIncidents = mockData.incidentsList;
+      this.incidents = new BehaviorSubject<any>(this.listIncidents);
+      this.incident = this.incidents.asObservable();
+
+      this.shelterList = mockData.shelterList;
       this.shelters = new BehaviorSubject<any>(this.shelterList);
       this.shelter = this.shelters.asObservable();
+
+      this.resourceList = mockData.resourceList;
+      this.resources = new BehaviorSubject<any>(this.resourceList);
+      this.resource = this.resources.asObservable();
     }
     this.findMapLocationBySearchDataURL = environment.findMapLocationBySearchDataURL;
     this.findMapLocationBySearchLLURL = environment.findMapLocationBySearchLLURL;
@@ -66,6 +77,10 @@ export class InfoService {
 
   saveOffice(officeInfo) {
     this.offices.next(officeInfo);
+  }
+
+  saveResource(resourceInfo) {
+    this.offices.next(resourceInfo);
   }
   getMapLocationData(address): Observable<any> {
     return this.http.get(this.findMapLocationBySearchDataURL + address);

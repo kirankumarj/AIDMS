@@ -68,8 +68,8 @@ import { ResourceService } from './services/resource.service';
 
 import { CommonModule} from '@angular/common';
 import { IncidentProcessComponent } from './incident/incident-process/incident-process.component';
-import { ShelterService } from "src/app/services/shelter.service";
-import { ShelterEffects } from "src/app/shelter/store/shelter.effects";
+import { ShelterService } from 'src/app/services/shelter.service';
+import { ShelterEffects } from 'src/app/shelter/store/shelter.effects';
 
 
 // const module = [
@@ -125,7 +125,7 @@ import { ShelterEffects } from "src/app/shelter/store/shelter.effects";
     CommonModule,
     AppRoutingModule,
     StoreModule.forRoot(AllReducers),
-    EffectsModule.forRoot([OrgnizationEffects,AssetsEffects,DashboardEffects, ResourceEffects,ShelterEffects]),
+    EffectsModule.forRoot([OrgnizationEffects, AssetsEffects, DashboardEffects, ResourceEffects, ShelterEffects]),
     StoreDevtoolsModule.instrument(
      {
        maxAge: 25
@@ -140,7 +140,7 @@ import { ShelterEffects } from "src/app/shelter/store/shelter.effects";
     OverlayDeleteComponent,
     OverlayUpdateOrgComponent
   ],
-  providers: [ InfoService, RestService, OrganizationService ,AssetsService, IncidentCountService, ResourceService,ShelterService],
+  providers: [ InfoService, RestService, OrganizationService , AssetsService, IncidentCountService, ResourceService, ShelterService],
   bootstrap: [AppComponent],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

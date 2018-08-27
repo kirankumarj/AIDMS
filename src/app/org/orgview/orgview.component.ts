@@ -64,7 +64,7 @@ export class OrgviewComponent implements OnInit , AfterViewInit {
   }
 
   ngOnInit() {
-    // this.store.dispatch(new orgActions.GetAllOrganization() );
+    this.store.dispatch(new orgActions.GetAllOrganization() );
     // console.log("From the ngOnInit");
     // console.log(this.store);
   }
