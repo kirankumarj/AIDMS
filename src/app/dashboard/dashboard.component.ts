@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { InfoService } from '../info.service';
 import * as maptalks from 'maptalks';
 import { PopupComponent } from '../popup/popup.component';
@@ -54,7 +55,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     }
   };
 
-  constructor(private service: InfoService, private store: Store<AppState>) { }
+  constructor(private router: Router, private service: InfoService, private store: Store<AppState>) { }
   ngOnInit() {
     this.newOrg.latitude = 78.498;
     this.newOrg.longitude = 17.476;
@@ -188,6 +189,10 @@ mapValues(fromAddress, toAddress) {
     this.service.getMapLocationData(this.searchAddress).subscribe((res) => {
       this.address = res;
     });
+  }
+
+  goto(route) {
+    this.router.navigate(['/', route]);
   }
   
 }
