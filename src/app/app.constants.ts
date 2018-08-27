@@ -11,7 +11,7 @@ export class AppConstants {
   public static GET_TOTAL_ASSETS = AppConstants.QDMP_URI + 'incidents/count';
   public static GET_AVAILABLE_ASSETS = AppConstants.QDMP_URI + 'incidents/count';
   public static GET_DEFECTIVE_ASSETS = AppConstants.QDMP_URI + 'incidents/count';
-  public static GET_LIVE_NEWS_FEED = AppConstants.QDMP_URI + 'incidents/count';
+  public static GET_LIVE_NEWS_FEED = AppConstants.QDMP_URI + 'livenewsfeeds';
   public static GET_NOTIFICATIONS = AppConstants.QDMP_URI + 'notifications';
   public static RESOURCES_URL = AppConstants.QDMP_URI + '/resources';
   public static DELETE_ORGANIZATION = function (orgId: string) {

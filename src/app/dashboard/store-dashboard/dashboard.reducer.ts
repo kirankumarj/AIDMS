@@ -46,14 +46,8 @@ export const defectiveAssetsState: DefectiveAssetsState = {
 
 export const liveNewsState: LiveNewsState = {
   liveNewsFeed: [{
-    news: 'Rainfall over Kerala during Monsoon Season-2018 and forecast for next 5 days',
-  },
-  {
-    news: 'Ministry of Earth Sciences to set up a Cyclone Warning Centre in Thiruvananthapuram',
-  },
-  {
-    news: 'Indian International Science Festival 2018',
-  }], message:''
+    newsdesc:'',
+  }],message:''
 };
 
 export const notificationState: NotificationState = {
