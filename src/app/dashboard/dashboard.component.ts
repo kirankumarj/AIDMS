@@ -17,6 +17,7 @@ import * as dashboardAction from '././store-dashboard/dashboard.actions';
 })
 export class DashboardComponent implements OnInit, AfterViewInit {
 
+  
   openIncidents:any;
   inProgressIncidents:any;
   totalResources:any;
@@ -27,19 +28,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   defectiveAssets:any;
   liveNewsFeed:any;
   notifications:any;
-  /*liveNewsFeed = [
-    {
-      news: '- Huge crowd stock in cyber gateway',
-    },
-    {
-      news: '- Rainfall Level Surpassed',
-    },
-    {
-      news: '- Fire Accident near Madhapur',
-    }
-  ];*/
- 
   step = 0;
+
   searchAddress;
   address;
   map;
@@ -119,7 +109,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
      });
 
      this.store.select('notifications').subscribe((res)=>{
-       console.log(res);
       this.notifications = res.notifications;
      });
 

@@ -8,16 +8,16 @@ import { ShelterMapInfo } from "src/app/models/shelter/ShelterMapInfo";
 export interface AppState{
     organizations:fromOrganization.State;
     assets:fromAssets.State
-    openIncidents:fromdashboard.State;
-    inProgressIncidents:fromdashboard.State;
-    totalResources:fromdashboard.State;
-    availableResources:fromdashboard.State;
-    defectiveResources:fromdashboard.State;
-    totalAssets:fromdashboard.State;
-    availableAssets:fromdashboard.State;
-    defectiveAssets:fromdashboard.State;
-    liveNewsFeed:fromdashboard.State;
-    notifications:fromdashboard.State;
+    openIncidents:OpenIncidentsState;
+    inProgressIncidents:InProgressIncidentsState;
+    totalResources:TotalResourcesState;
+    availableResources:AvailableResourcesState;
+    defectiveResources:DefectiveResourcesState;
+    totalAssets:TotalAssetsState;
+    availableAssets:AvailableAssetsState;
+    defectiveAssets:DefectiveAssetsState;
+    liveNewsFeed:LiveNewsState;
+    notifications:NotificationState;
     shelters:ShelterState;
 }
 
@@ -25,3 +25,56 @@ export interface ShelterState {
 	shelters: ShelterMapInfo[];
 	message: any;
 }
+
+export interface NotificationState {
+    notifications: any;
+    message: any;
+}
+
+export interface LiveNewsState {
+    liveNewsFeed: any;
+    message: any;
+}
+
+export interface OpenIncidentsState {
+    openIncidents:any;
+    message: any;
+}
+
+export interface InProgressIncidentsState {
+    inProgressIncidents:any;
+    message: any;
+}
+
+export interface TotalResourcesState {
+    totalResources:any;
+    message: any;
+}
+
+export interface AvailableResourcesState {
+    availableResources:any;
+    message:any;
+}
+
+export interface DefectiveResourcesState {
+    defectiveResources:any;
+    message:any;
+}
+
+export interface TotalAssetsState{
+    totalAssets:any;
+    message:any;
+}
+
+export interface AvailableAssetsState{
+    availableAssets:any;
+    message:any;
+}
+
+export interface DefectiveAssetsState{
+    defectiveAssets:any;
+    message:any;
+}
+
+
+   

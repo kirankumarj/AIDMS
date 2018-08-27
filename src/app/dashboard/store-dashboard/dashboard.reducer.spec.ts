@@ -1,4 +1,4 @@
-import { reducer, initialState } from './dashboard.reducer';
+/*import { reducer, initialState } from './dashboard.reducer';
 
 describe('Dashboard Reducer', () => {
   describe('unknown action', () => {
@@ -10,4 +10,4 @@ describe('Dashboard Reducer', () => {
       expect(result).toBe(initialState);
     });
   });
-});
+});*/

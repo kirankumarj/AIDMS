@@ -13,16 +13,16 @@ import {
 export const AllReducers:ActionReducerMap<AppState>={
             organizations:orgReducers.orgReducer,
             assets:assetsReduceras.reducer,
-            openIncidents:dashboardReducers.reducer,
-            inProgressIncidents:dashboardReducers.reducer,
-            totalResources:dashboardReducers.reducer,
-            availableResources:dashboardReducers.reducer,
-            defectiveResources:dashboardReducers.reducer,
-            totalAssets:dashboardReducers.reducer,
-            availableAssets:dashboardReducers.reducer,
-            defectiveAssets:dashboardReducers.reducer,
-            liveNewsFeed:dashboardReducers.reducer,
-            notifications:dashboardReducers.reducer,
+            openIncidents:dashboardReducers.openIncidentReducer,
+            inProgressIncidents:dashboardReducers.inProgressIncidentReducer,
+            totalResources:dashboardReducers.totalResourcesReducer,
+            availableResources:dashboardReducers.availableResourcesReducer,
+            defectiveResources:dashboardReducers.defectiveResourcesReducer,
+            totalAssets:dashboardReducers.totalAssetsReducer,
+            availableAssets:dashboardReducers.availableAssetsReducer,
+            defectiveAssets:dashboardReducers.defectiveAssetsReducer,
+            liveNewsFeed:dashboardReducers.liveNewsFeedReducer,
+            notifications:dashboardReducers.notificationReducer,
             shelters:shelterReducers.shelterReducer
 
 }

@@ -10,7 +10,7 @@ import {IncidentCountService} from '../../services/dashboard/incident.service';
 export class DashboardEffects {
 
   constructor(private actions$: Actions, private inc: IncidentCountService) {}
-/*
+
   @Effect()
   getOpenIncidentsCount$:Observable<Action>=this.actions$
   .ofType(DashboardActionTypes.OPEN_INCIDENTS)
@@ -80,6 +80,6 @@ export class DashboardEffects {
   .pipe(switchMap(()=>this.inc.getNotification()),
       map(res =>new DashboardActionTypes.getNotificationsSuccess(res))
   )
-  */
+  
 
 }

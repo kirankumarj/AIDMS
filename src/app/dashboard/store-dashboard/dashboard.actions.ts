@@ -111,7 +111,7 @@ export class getliveNewsFeedSuccess implements Action {
     readonly type = LIVE_NEWS_FEED_SUCCESS;
     constructor(public liveNews: any) {
     }
-}
+} 
 
 export class notifications implements Action {
   readonly type = NOTIFICATIONS;
