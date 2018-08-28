@@ -21,4 +21,13 @@ export class ResourceService {
     console.log('From the createResource.....'+createRequest.name);
     return this.restService.post(createRequest, AppConstants.RESOURCES_URL);
   }
+
+  public deleteResource(resourceId): Observable<any> {
+    return this.restService.delete(AppConstants.DELETE_RESOURCE(resourceId));
+  }
+
+  public updateResource(req: any): Observable<any> {
+    console.log(req);
+    return this.restService.update(req, AppConstants.RESOURCES_URL);
+  }
 }

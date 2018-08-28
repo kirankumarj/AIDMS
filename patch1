@@ -1,0 +1,525 @@
+ src/app/app.constants.ts                           |   4 +
+ src/app/app.reducers.ts                            |   4 +-
+ src/app/app.state.ts                               |   2 +
+ .../resource-view/resource-view.component.css      |  56 ++++
+ .../resource-view/resource-view.component.html     |  62 ++++-
+ .../resource-view/resource-view.component.ts       | 284 ++++++++++++++++++++-
+ src/app/resource/store/resource.reducers.ts        |   2 +-
+ src/app/services/resource.service.ts               |   9 +
+ 8 files changed, 414 insertions(+), 9 deletions(-)
+
+diff --git a/src/app/app.constants.ts b/src/app/app.constants.ts
+index 9a6c979..f0dd434 100644
+--- a/src/app/app.constants.ts
++++ b/src/app/app.constants.ts
+@@ -23,4 +23,8 @@ export class AppConstants {
+   public static DELETE_SHELTER = function (shelterId: string) {
+     return AppConstants.QDMP_URI + `dmshleter/${shelterId}`;
+   };
++
++  public static DELETE_RESOURCE = function (resourceId: string) {
++    return AppConstants.RESOURCES_URL + `/${resourceId}`;
++  };
+ }
+diff --git a/src/app/app.reducers.ts b/src/app/app.reducers.ts
+index c1d5984..64e8677 100644
+--- a/src/app/app.reducers.ts
++++ b/src/app/app.reducers.ts
+@@ -4,6 +4,7 @@ import * as orgReducers from './org/store/org.reducers';
+ import * as assetsReduceras from './new-assets/store/assets.reducer';
+ import * as dashboardReducers from './dashboard/store-dashboard/dashboard.reducer';
+ import * as shelterReducers from  './shelter/store/shelter.reducers';
++import * as resourceReducer from './resource/store/resource.reducers';
+ import {
+     createFeatureSelector,
+     createSelector,
+@@ -23,7 +24,8 @@ export const AllReducers:ActionReducerMap<AppState>={
+             defectiveAssets:dashboardReducers.defectiveAssetsReducer,
+             liveNewsFeed:dashboardReducers.liveNewsFeedReducer,
+             notifications:dashboardReducers.notificationReducer,
+-            shelters:shelterReducers.shelterReducer
++            shelters:shelterReducers.shelterReducer,
++            resources:resourceReducer.resourceReducer
+ 
+ }
+ 
+diff --git a/src/app/app.state.ts b/src/app/app.state.ts
+index fc8d0f0..08a4ae6 100644
+--- a/src/app/app.state.ts
++++ b/src/app/app.state.ts
+@@ -3,6 +3,7 @@ import * as fromAssets from './new-assets/store/assets.reducer';
+ import * as fromdashboard from './dashboard/store-dashboard/dashboard.reducer';
+ import * as fromShelter from './shelter/store/shelter.reducers'
+ import { ShelterMapInfo } from "src/app/models/shelter/ShelterMapInfo";
++import * as fromResource from './resource/store/resource.reducers';
+ 
+ 
+ export interface AppState{
+@@ -19,6 +20,7 @@ export interface AppState{
+     liveNewsFeed:LiveNewsState;
+     notifications:NotificationState;
+     shelters:ShelterState;
++    resources: fromResource.State;
+ }
+ 
+ export interface ShelterState {
+diff --git a/src/app/resource/resource-view/resource-view.component.css b/src/app/resource/resource-view/resource-view.component.css
+index e69de29..3b756bd 100644
+--- a/src/app/resource/resource-view/resource-view.component.css
++++ b/src/app/resource/resource-view/resource-view.component.css
+@@ -0,0 +1,56 @@
++.container{width:100%; height: 100%;}
++/* #info{margin-top: 100px; position:fixed;background-color:rgba(13, 13, 13, 0.5);padding:10px 10px 10px 10px;font:13px bold sans-serif;color:#fff;left:0px;top:0px;width:100%;height:140px;overflow:hidden} */
++table {
++  width: 100%;
++}
++
++.mat-form-field {
++  font-size: 14px;
++  width: 100%;
++}
++
++td, th {
++  width: 25%;
++}
++
++
++.container{
++  width:100%;
++  height: 540px;
++}
++#info{margin-top: 100px; position:fixed;background-color:rgba(13, 13, 13, 0.5);padding:10px 10px 10px 10px;font:13px bold sans-serif;color:#fff;left:0px;top:0px;width:100%;height:140px;overflow:hidden}
++
++.mat-figure {
++display: inline !important;
++}
++table {
++  width: 100%;
++}
++
++#wrapper {
++  margin: 10px auto;
++}
++#leftcolumn, #rightcolumn {
++ border: 1px solid grey;
++ float: left;
++ min-height: 450px;
++ color: black;
++}
++#leftcolumn {
++  width: 550px;
++  background-color: #777;
++  height: 540px;
++}
++#rightcolumn {
++  width: 650px;
++  background-color:black;
++}
++
++.example-container {
++  display: flex;
++  flex-direction: column;
++}
++
++.example-container > * {
++  width: 100%;
++}
+diff --git a/src/app/resource/resource-view/resource-view.component.html b/src/app/resource/resource-view/resource-view.component.html
+index 1178ba8..26e1dca 100644
+--- a/src/app/resource/resource-view/resource-view.component.html
++++ b/src/app/resource/resource-view/resource-view.component.html
+@@ -1,3 +1,59 @@
+-<p>
+-  resource-view works!
+-</p>
++<div id="wrapper">
++  <div id="leftcolumn">
++      <div class="example-container" style="background: white; padding: 10px; margin: 2px;">
++          <mat-form-field>
++            <input matInput #input placeholder="Search Info" (keyup)="filterResourceInfo(input.value)">
++          </mat-form-field>
++        </div>
++      <div class="mat-elevation-z8">
++          <table mat-table [dataSource]="dataSource">
++
++            <ng-container matColumnDef="name">
++              <th mat-header-cell *matHeaderCellDef> Name </th>
++              <td mat-cell *matCellDef="let element" (click)="animateMap(element)"> {{element.name}} </td>
++            </ng-container>
++
++            <!-- Weight Column -->
++            <ng-container matColumnDef="type">
++              <th mat-header-cell *matHeaderCellDef> Organization </th>
++              <td mat-cell *matCellDef="let element" (click)="animateMap(element)"> {{element.type}} </td>
++            </ng-container>
++
++            <ng-container matColumnDef="info">
++                <th mat-header-cell *matHeaderCellDef> Info </th>
++                <td mat-cell *matCellDef="let element" (click)="animateMap(element)"> {{element.info}} </td>
++            </ng-container>
++
++            <ng-container matColumnDef="action">
++                  <th mat-header-cell *matHeaderCellDef> Action </th>
++               <td mat-cell *matCellDef="let element">
++                 <button mat-icon-button [matMenuTriggerFor]="menu">
++                      <mat-icon>...</mat-icon>
++                    </button>
++                    <mat-menu #menu="matMenu">
++                      <button mat-menu-item (click)="updateRecord(element)">
++                        <span>Update</span>
++                      </button>
++                      <button mat-menu-item (click)="deleteRecord(element)">
++                        <span>Delete</span>
++                      </button>
++                    </mat-menu>
++                  </td>
++            </ng-container>
++              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
++              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
++
++
++          </table>
++
++          <mat-paginator [pageSizeOptions]="[4, 8]" showFirstLastButtons></mat-paginator>
++        </div>
++  </div>
++  <div id="rightcolumn" style="color:black;">
++      <div id="map" class="container"></div>
++  </div>
++</div>
++
++
++
++
+diff --git a/src/app/resource/resource-view/resource-view.component.ts b/src/app/resource/resource-view/resource-view.component.ts
+index 2ab5086..2a95861 100644
+--- a/src/app/resource/resource-view/resource-view.component.ts
++++ b/src/app/resource/resource-view/resource-view.component.ts
+@@ -1,15 +1,291 @@
+-import { Component, OnInit } from '@angular/core';
++import { Component, OnInit ,  AfterViewChecked, AfterViewInit, ViewChild, ChangeDetectionStrategy} from '@angular/core';
++import { InfoService } from '../../info.service';
++import { MatTableDataSource, MatPaginator, MatDialog, MatSnackBar } from '@angular/material';
++import * as maptalks from 'maptalks';
++import { OverlayDeleteComponent } from '../../popup/overlay-delete/overlay-delete.component';
++import { OverlayUpdateOrgComponent } from '../../popup/overlay-update-org/overlay-update-org.component';
++import { PopupComponent } from '../../popup/popup.component';
++
++import { environment } from '../../../environments/environment';
++import {Store} from '@ngrx/store';
++import {Observable} from 'rxjs';
++import {AppState} from '../../app.state';
++import * as resourceActions from '../store/resource.actions';
++import { ResourceService } from '../../services/resource.service';
++
++export interface Tile {
++  color: string;
++  cols: number;
++  rows: number;
++  text: string;
++}
+ 
+ @Component({
+   selector: 'app-resource-view',
+   templateUrl: './resource-view.component.html',
+   styleUrls: ['./resource-view.component.css']
+ })
+-export class ResourceViewComponent implements OnInit {
+ 
+-  constructor() { }
++export class ResourceViewComponent implements OnInit , AfterViewInit {
++  organizationsList: Observable<any[]>;
++  displayedColumns: string[] = ['name', 'type', 'info', 'action'];
++  dataSource;
++  resources = [];
++  mapSelcted = '';
++  incidentLocations = [];
++  layer;
++  map;
++  marker;
++  resourceIndex;
++  action;
++  filterSize = false;
++  updateData = {
++    id: '',
++    org: '',
++    dept: '',
++    job: '',
++    email: '',
++    name: '',
++    latitude: 0,
++    longitude: 0,
++    type: '',
++    info: '',
++    address: {
++      city: '',
++      country: '',
++      postcode: '',
++      state: '',
++      state_district: ''
++    }
++  };
++  @ViewChild(MatPaginator) paginator: MatPaginator;
++
++  constructor(private service: InfoService, private matDialog: MatDialog, private snackBar: MatSnackBar,
++    private resourceService: ResourceService,
++    private store: Store<AppState> ) {
++  }
+ 
+   ngOnInit() {
++    this.store.dispatch(new resourceActions.GetAllResources());
++    // console.log("From the ngOnInit");
++    // console.log(this.store);
++  }
++  ngAfterViewInit() {
++    if (environment.isDataAvailableInRealService) {
++      console.log('Hit the service :: Get the all resources Details ');
++      this.getAllResources();
++    } else {
++      console.log('Mock Data :: Get the all resources Details ');
++      this.service.mapLocation.subscribe(res => this.resources = res);
++      this.service.saveResource(this.resources);
++      this.dataSource = new MatTableDataSource<any>(this.resources);
++      this.dataSource.paginator = this.paginator;
++      this.loadMap();
++    }
+   }
+ 
+-}
++  animateMap(element) {
++    console.log(element);
++      setTimeout( ( ) => {
++        this.map.animateTo({
++          center: [element.latitude, element.longitude],
++          zoom: 12,
++          pitch: 20,
++          bearing: 0
++        }, {
++          duration: 1000
++        });
++      }, 1000);
++    }
++
++  applyMarkers(org) {
++
++    org.forEach(element => {
++      this.marker = new maptalks.Marker(
++        [element.latitude, element.longitude],
++        {
++          'properties' : {
++            'name' : element.name
++          },
++          symbol : [
++            {
++              'markerFile'   : '../../assets/icons/office/resources.png',
++              'markerWidth'  : 30,
++              'markerHeight' : 40
++            },
++            {
++              'textFaceName' : 'sans-serif',
++              'textName' : '{name}',
++              'textSize' : 14,
++              'textDy'   : 24
++            }
++          ]
++        }
++      ).addTo(this.layer);
++      this.marker.setInfoWindow({
++        'title'     : element.name,
++        'content'   : element.info
++      });
++      this.marker.openInfoWindow();
++    });
++  }
++// map initializations
++  mapInitialization(lat, lon ) {
++    this.map = new maptalks.Map('map', {
++      center: [lat, lon],
++      zoom: 14,
++      baseLayer: new maptalks.TileLayer('base', {
++        urlTemplate: 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
++        subdomains: ['a', 'b' , 'c' , 'd'],
++        attribution: '&copy; <a href="http://osm.org">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/">CARTO</a>'
++      })
++    });
++  }
++
++  loadMap() {
++    const size = this.resources.length - 1;
++    if (0 <= size) {
++      this.mapInitialization(this.resources[size].latitude, this.resources[size].longitude);
++      this.layer = new maptalks.VectorLayer('vector').addTo(this.map);
++      this.applyMarkers(this.resources);
++    } else {
++      window.navigator.geolocation.getCurrentPosition((location) => {
++        this.mapInitialization(location.coords.longitude, location.coords.latitude);
++        });
++    }
++  }
++
++  updateRecord(element) {
++    console.log(element);
++    const dialogRef = this.matDialog.open(OverlayUpdateOrgComponent, {
++      width: '250px',
++      data: {actualData: element, updateData: this.updateData}
++    });
++
++    dialogRef.afterClosed().subscribe(result => {
++      console.log(`Dialog result: ${result}`);
++      console.log(this.updateData);
++      if (result) {
++        if (environment.isDataAvailableInRealService) {
++          this.updateResource(element);
++        } else {
++          element.name = this.updateData.name;
++          element.type = this.updateData.type;
++          element.info = this.updateData.info;
++          this.snackBar.openFromComponent(PopupComponent, {
++            duration: 1000,
++            data: 'Updated Data...!'
++          });
++          this.map.removeLayer(this.layer);
++          this.layer = new maptalks.VectorLayer('vector').addTo(this.map);
++          this.applyMarkers(this.resources);
++          this.animateMap(element);
++        }
++      }
++    });
++  }
++
++  deleteRecord(element) {
++    console.log(element);
++    this.resourceIndex = this.resources.indexOf(element);
++    this.openDialog(element);
++  }
++
++  openDialog(element): void {
++    const dialogRef = this.matDialog.open(OverlayDeleteComponent, {
++      width: '250px'
++    });
++
++    dialogRef.afterClosed().subscribe(result => {
++      console.log(`Dialog result: ${result}`);
++      if (result) {
++        if (this.resourceIndex !== -1) {
++          if (environment.isDataAvailableInRealService) {
++            this.resourceService.deleteResource(element.id).subscribe((res) => {
++              console.log(res);
++              if ( res.deleted === 1 ) {
++                this.resources.splice(this.resourceIndex, 1);
++                this.dataSource = new MatTableDataSource<any>(this.resources);
++                this.map.removeLayer(this.layer);
++                this.layer = new maptalks.VectorLayer('vector').addTo(this.map);
++                this.applyMarkers(this.resources);
++                this.snackBar.openFromComponent(PopupComponent, {
++                  duration: 1000,
++                  data: 'Record Deleted...!'
++                });
++              }
++            },
++            error => {
++              this.snackBar.openFromComponent(PopupComponent, {
++                duration: 2000,
++                data: 'Service Error...!'
++              });
++            });
++
++          } else {
++            this.resources.splice(this.resourceIndex, 1);
++            this.service.saveResource(this.resources);
++            this.dataSource = new MatTableDataSource<any>(this.resources);
++            this.map.removeLayer(this.layer);
++            this.layer = new maptalks.VectorLayer('vector').addTo(this.map);
++            this.applyMarkers(this.resources);
++          }
++        }
++      }
++    });
++  }
++
++  getAllResources() {
++
++    this.store.select("resources").subscribe((res) => {
++      this.resources = res.data;
++      console.log(this.resources);
++      this.dataSource = new MatTableDataSource<any>(this.resources);
++      this.dataSource.paginator = this.paginator;
++      this.loadMap();
++    },
++    error => {
++      this.snackBar.openFromComponent(PopupComponent, {
++        duration: 3000,
++        data: 'Service Error...!'
++      });
++    });
++  }
++
++  updateResource(element) {
++    console.log('req', this.updateData);
++    this.resourceService.updateResource(this.updateData).subscribe((res) => {
++      console.log(res);
++      if ( res.id === this.updateData.id ) {
++          element.name = this.updateData.name;
++          element.type = this.updateData.type;
++          element.info = this.updateData.info;
++          this.snackBar.openFromComponent(PopupComponent, {
++            duration: 1000,
++            data: 'Record Updated...!'
++          });
++          this.map.removeLayer(this.layer);
++          this.layer = new maptalks.VectorLayer('vector').addTo(this.map);
++          this.applyMarkers(this.resources);
++      }
++    },
++    error => {
++      this.snackBar.openFromComponent(PopupComponent, {
++        duration: 2000,
++        data: 'Service Error...!'
++      });
++    });
++  }
++
++  filterResourceInfo(value) {
++          this.dataSource.filter = value.trim().toLowerCase();
++          this.map.removeLayer(this.layer);
++          this.layer = new maptalks.VectorLayer('vector').addTo(this.map);
++          this.applyMarkers(this.dataSource.filteredData);
++          if (this.dataSource.filteredData.length === 0) {
++            this.filterSize = true;
++          } else {
++            this.filterSize = false;
++          }
++  }
++}
+\ No newline at end of file
+diff --git a/src/app/resource/store/resource.reducers.ts b/src/app/resource/store/resource.reducers.ts
+index 97dc181..9409c0c 100644
+--- a/src/app/resource/store/resource.reducers.ts
++++ b/src/app/resource/store/resource.reducers.ts
+@@ -20,7 +20,7 @@ export const initialState={
+     ]
+ }
+ 
+-export function orgReducer(state=initialState,action:AppAction):State{
++export function resourceReducer(state=initialState,action:AppAction):State{
+     switch (action.type) {
+         case ResourceActions.GET_ALL_RESOURCES:
+         return{
+diff --git a/src/app/services/resource.service.ts b/src/app/services/resource.service.ts
+index 91c00c4..f23a498 100644
+--- a/src/app/services/resource.service.ts
++++ b/src/app/services/resource.service.ts
+@@ -21,4 +21,13 @@ export class ResourceService {
+     console.log('From the createResource.....'+createRequest.name);
+     return this.restService.post(createRequest, AppConstants.RESOURCES_URL);
+   }
++
++  public deleteResource(resourceId): Observable<any> {
++    return this.restService.delete(AppConstants.DELETE_RESOURCE(resourceId));
++  }
++
++  public updateResource(req: any): Observable<any> {
++    console.log(req);
++    return this.restService.update(req, AppConstants.RESOURCES_URL);
++  }
+ }

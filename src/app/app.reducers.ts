@@ -4,6 +4,7 @@ import * as orgReducers from './org/store/org.reducers';
 import * as assetsReduceras from './new-assets/store/assets.reducer';
 import * as dashboardReducers from './dashboard/store-dashboard/dashboard.reducer';
 import * as shelterReducers from  './shelter/store/shelter.reducers';
+import * as resourceReducer from './resource/store/resource.reducers';
 import {
     createFeatureSelector,
     createSelector,
@@ -23,7 +24,8 @@ export const AllReducers:ActionReducerMap<AppState>={
             defectiveAssets:dashboardReducers.defectiveAssetsReducer,
             liveNewsFeed:dashboardReducers.liveNewsFeedReducer,
             notifications:dashboardReducers.notificationReducer,
-            shelters:shelterReducers.shelterReducer
+            shelters:shelterReducers.shelterReducer,
+            resources:resourceReducer.resourceReducer
 
 }
 

@@ -3,6 +3,7 @@ import * as fromAssets from './new-assets/store/assets.reducer';
 import * as fromdashboard from './dashboard/store-dashboard/dashboard.reducer';
 import * as fromShelter from './shelter/store/shelter.reducers'
 import { ShelterMapInfo } from "src/app/models/shelter/ShelterMapInfo";
+import * as fromResource from './resource/store/resource.reducers';
 
 
 export interface AppState{
@@ -19,6 +20,7 @@ export interface AppState{
     liveNewsFeed:LiveNewsState;
     notifications:NotificationState;
     shelters:ShelterState;
+    resources: fromResource.State;
 }
 
 export interface ShelterState {

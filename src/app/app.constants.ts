@@ -23,4 +23,8 @@ export class AppConstants {
   public static DELETE_SHELTER = function (shelterId: string) {
     return AppConstants.QDMP_URI + `dmshleter/${shelterId}`;
   };
+
+  public static DELETE_RESOURCE = function (resourceId: string) {
+    return AppConstants.RESOURCES_URL + `/${resourceId}`;
+  };
 }

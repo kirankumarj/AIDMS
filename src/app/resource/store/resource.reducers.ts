@@ -20,7 +20,7 @@ export const initialState={
     ]
 }
 
-export function orgReducer(state=initialState,action:AppAction):State{
+export function resourceReducer(state=initialState,action:AppAction):State{
     switch (action.type) {
         case ResourceActions.GET_ALL_RESOURCES:
         return{
