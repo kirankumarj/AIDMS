@@ -18,7 +18,7 @@ export const AllReducers:ActionReducerMap<AppState>={
             inProgressIncidents:dashboardReducers.inProgressIncidentReducer,
             totalResources:dashboardReducers.totalResourcesReducer,
             availableResources:dashboardReducers.availableResourcesReducer,
-            defectiveResources:dashboardReducers.defectiveResourcesReducer,
+            allocatedResources:dashboardReducers.allocatedResourcesReducer,
             totalAssets:dashboardReducers.totalAssetsReducer,
             availableAssets:dashboardReducers.availableAssetsReducer,
             defectiveAssets:dashboardReducers.defectiveAssetsReducer,

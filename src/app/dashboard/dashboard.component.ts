@@ -2,12 +2,14 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { InfoService } from '../info.service';
 import * as maptalks from 'maptalks';
+import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { PopupComponent } from '../popup/popup.component';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import {AppState} from '../app.state';
 import { Store } from '@ngrx/store';
 import * as dashboardAction from '././store-dashboard/dashboard.actions';
+import { OrgMapInfo } from '././../models/organization/OrgMapInfo';
 
 
 
@@ -23,7 +25,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   inProgressIncidents:any;
   totalResources:any;
   availableResources:any;
-  defectiveResources:any;
+  allocatedResources:any;
   totalAssets:any;
   availableAssets:any;
   defectiveAssets:any;
@@ -33,10 +35,12 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   searchAddress;
   address;
+  layer;
   map;
-  extent;
-  ex;
-  mapStatus;
+  dataSource;
+  dashboardMapAssertsList;
+  mapSelcted = '';
+  marker;
   center;
   addressInfo;
   addressLocation = [];
@@ -59,12 +63,17 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.newOrg.latitude = 78.498;
     this.newOrg.longitude = 17.476;
-   
+
+    this.service.dashboardMapAssert.subscribe(res => this.dashboardMapAssertsList = res);
+    this.service.saveDashboardMapAssertsList(this.dashboardMapAssertsList);
+
+    this.dataSource = new MatTableDataSource<OrgMapInfo>(this.dashboardMapAssertsList);
+
     this.store.dispatch(new dashboardAction.openIncidents());
     this.store.dispatch(new dashboardAction.inProgressIncidents());
     this.store.dispatch(new dashboardAction.totalResources());
     this.store.dispatch(new dashboardAction.availableResources());
-    this.store.dispatch(new dashboardAction.defectiveResources());
+    this.store.dispatch(new dashboardAction.allocatedResources());
     this.store.dispatch(new dashboardAction.totalAssets());
     this.store.dispatch(new dashboardAction.availableAssets());
     this.store.dispatch(new dashboardAction.defectiveAssets());
@@ -89,8 +98,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       this.availableResources = res.availableResources;
      });
 
-     this.store.select('defectiveResources').subscribe((res)=>{
-      this.defectiveResources = res.defectiveResources;
+     this.store.select('allocatedResources').subscribe((res)=>{
+      this.allocatedResources = res.allocatedResources;
      });
 
      this.store.select('totalAssets').subscribe((res)=>{
@@ -113,6 +122,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       this.notifications = res.notifications;
      });
 
+    
   }
   ngAfterViewInit() {
     window.navigator.geolocation.getCurrentPosition((location) => {
@@ -127,27 +137,116 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.step = index;
   }
 
-  loadMap() {
-    this.map = new maptalks.Map('map', {
-      center: [this.newOrg.latitude, this.newOrg.longitude],
-      zoom: 12,
-      centerCross: true,
-      zoomControl: {
-        'position'  : 'top-right'
-      },
-      baseLayer: new maptalks.TileLayer('base', {
-        // urlTemplate: 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
-        // subdomains: ['a', 'b' , 'c' , 'd'],
-        // attribution: '&copy; <a href="http://osm.org">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/">CARTO</a>'
+loadMap() {
+  this.mapInitialization();
+  const ref  = this;
+
+   this.layer = new maptalks.VectorLayer('vector').addTo(this.map);
+   this.applyMarkers(this.dashboardMapAssertsList);
+
+   // vertical one on top right
+   new maptalks.control.Toolbar({
+     'vertical' : true,
+     'position' : 'top-right',
+     'items'     : [{
+       item: 'Select',
+       click : function () { },
+       children : [{
+         item: 'Hospitals',
+         click : function () {
+           ref.mapSelcted = 'hospital';
+           ref.dataSource.filter = ref.mapSelcted.trim().toLowerCase();
+           ref.map.removeLayer(ref.layer);
+           ref.layer = new maptalks.VectorLayer('vector').addTo(ref.map);
+           ref.applyMarkers(ref.dataSource.filteredData);
+          }
+       }, {
+         item: 'Fire-Stations',
+         click : function () {
+           ref.mapSelcted = 'firestation';
+           ref.dataSource.filter = ref.mapSelcted.trim().toLowerCase();
+           console.log(ref.dataSource.filter);
+           ref.map.removeLayer(ref.layer);
+           ref.layer = new maptalks.VectorLayer('vector').addTo(ref.map);
+           ref.applyMarkers(ref.dataSource.filteredData);
+         }
+       }, {
+         item: 'Airports',
+         click : function () {
+           ref.mapSelcted = 'airport';
+           ref.dataSource.filter = ref.mapSelcted.trim().toLowerCase();
+           ref.map.removeLayer(ref.layer);
+           ref.layer = new maptalks.VectorLayer('vector').addTo(ref.map);
+           ref.applyMarkers(ref.dataSource.filteredData);
+         }
+       }, {
+           item: 'all',
+           click : function () {
+             ref.mapSelcted = '';
+             ref.dataSource.filter = ref.mapSelcted.trim().toLowerCase();
+             ref.map.removeLayer(ref.layer);
+           ref.layer = new maptalks.VectorLayer('vector').addTo(ref.map);
+           ref.applyMarkers(ref.dashboardMapAssertsList);
+           }
+       }]
+     }, {
+       item: '---',
+       click : function () {
+        ref.mapSelcted = '';
+        ref.dataSource.filter = ref.mapSelcted.trim().toLowerCase();
+        ref.map.removeLayer(ref.layer);
+        ref.layer = new maptalks.VectorLayer('vector').addTo(ref.map);
+        ref.applyMarkers(ref.dashboardMapAssertsList);
+      }
+     }]
+   })
+   .addTo(this.map);
+ }
+
+ mapInitialization() {
+  this.map = new maptalks.Map('map', {
+    center: [-0.113049, 51.498568],
+    zoom: 14,
+    baseLayer: new maptalks.TileLayer('base', {
       urlTemplate: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       subdomains: ['a', 'b' , 'c'],
       attribution: '&copy; <a href="http://osm.org">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/">CARTO</a>'
     })
-    });
-    this.map.on('zoomend moveend', () => {
-          this.getStatus();
-    });
+  });
+  
 }
+
+applyMarkers(incident) {
+
+  incident.forEach(element => {
+    this.marker = new maptalks.Marker(
+      [element.latitude, element.longitude],
+      {
+        'properties' : {
+          'name' : element.name
+        },
+        symbol : [
+          {
+            'markerFile'   : '../../assets/icons/dashboard/' + element.type + '.png',
+            'markerWidth'  : 30,
+            'markerHeight' : 40
+          },
+          {
+            'textFaceName' : 'sans-serif',
+            'textName' : '{name}',
+            'textSize' : 14,
+            'textDy'   : 24
+          }
+        ]
+      }
+    ).addTo(this.layer);
+    this.marker.setInfoWindow({
+      'title'     : element.name,
+      'content'   : element.info,
+    });
+  });
+}
+
 getStatus() {
   this.addressInfo = '';
   this.step = 2;

@@ -216,8 +216,89 @@ export const mockData = {
       'latitude': -0.131049,
       'longitude': 51.498568
     }
-  ]
+  ],
 
-
+  DashboardMapAssets : [
+    {
+      'id' : '0101',
+      'name': 'Yashoda',
+      'latitude': -0.12066,
+      'longitude': 51.498568,
+      'info': 'Yashoda',
+      'type': 'hospital'
+    },
+    {
+      'id' : '0102',
+      'name': 'Care',
+      'latitude': -0.14161,
+      'longitude': 51.49509,
+      'info': 'Care',
+      'type': 'hospital'
+    },
+    {
+      'id' : '0103',
+      'name': 'Healing Touch',
+      'latitude': -0.14161,
+      'longitude': 51.20509,
+      'info': 'Healing Touch',
+      'type': 'hospital'
+    },
+    {
+      'id' : '0104',
+      'name': 'KIMS',
+      'latitude': -0.14161,
+      'longitude': 41.49509,
+      'info': 'KIMS',
+      'type': 'hospital'
+    },
+    {
+      'id' : '0105',
+      'name': 'Nims',
+      'latitude': -0.14161,
+      'longitude': 51.10509,
+      'info': 'Nims',
+      'type': 'hospital'
+    },
+    {
+      'id' : '0301',
+      'name': 'airport1',
+      'latitude': -0.131049,
+      'longitude': 51.498568,
+      'info': 'airport1',
+      'type': 'airport'
+    },
+    {
+      'id' : '0302',
+      'name': 'airport2',
+      'latitude': -0.107049,
+      'longitude': 51.498568,
+      'info': 'airport2',
+      'type': 'airport'
+    },
+    {
+      'id' : '0303',
+      'name': 'airport3',
+      'latitude': -0.131049,
+      'longitude': 51.490568,
+      'info': 'airport3',
+      'type': 'airport'
+    },
+    {
+      'id' : '0201',
+      'name': 'FireStation1',
+      'latitude': -0.121049,
+      'longitude': 51.498568,
+      'info': 'FireStation1',
+      'type': 'firestation'
+    },
+    {
+      'id' : '0202',
+      'name': 'FireStation2',
+      'latitude': -0.117049,
+      'longitude': 51.498568,
+      'info': 'FireStation2',
+      'type': 'firestation'
+    }
+  ],
 
 };

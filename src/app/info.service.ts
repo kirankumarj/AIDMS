@@ -22,6 +22,7 @@ export class InfoService {
   listIncidents = mockData.incidentsList;
   shelterList = mockData.shelterList;
   resourceList = mockData.resourceList;
+  dashboardMapAssetsList = mockData.DashboardMapAssets;
 
   private maps ;
   mapLocation;
@@ -37,6 +38,9 @@ export class InfoService {
 
   private resources;
   resource;
+
+  private dashboardMapAssets;
+  dashboardMapAssert;
 
   constructor(private http: HttpClient) {
 
@@ -62,7 +66,12 @@ export class InfoService {
       this.resourceList = mockData.resourceList;
       this.resources = new BehaviorSubject<any>(this.resourceList);
       this.resource = this.resources.asObservable();
+
+      this.dashboardMapAssetsList = mockData.DashboardMapAssets;
+      this.dashboardMapAssets = new BehaviorSubject<any>(this.dashboardMapAssetsList);
+      this.dashboardMapAssert = this.dashboardMapAssets.asObservable();
     }
+
     this.findMapLocationBySearchDataURL = environment.findMapLocationBySearchDataURL;
     this.findMapLocationBySearchLLURL = environment.findMapLocationBySearchLLURL;
   }
@@ -73,6 +82,10 @@ export class InfoService {
 
   saveIncident(incidentInfo) {
     this.incidents.next(incidentInfo);
+  }
+
+  saveDashboardMapAssertsList(Info) {
+    this.dashboardMapAssets.next(Info);
   }
 
   saveOffice(officeInfo) {

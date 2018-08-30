@@ -1,5 +1,5 @@
 import * as DashboardActionTypes from './dashboard.actions';
-import { OpenIncidentsState, InProgressIncidentsState, TotalResourcesState, AvailableResourcesState,DefectiveResourcesState, TotalAssetsState,AvailableAssetsState,DefectiveAssetsState, LiveNewsState, NotificationState } from "src/app/app.state";
+import { OpenIncidentsState, InProgressIncidentsState, TotalResourcesState, AvailableResourcesState,AllocatedResourcesState, TotalAssetsState,AvailableAssetsState,DefectiveAssetsState, LiveNewsState, NotificationState } from "src/app/app.state";
 
 export const openIncidentsState: OpenIncidentsState = {
   openIncidents:9,
@@ -22,8 +22,8 @@ export const availableResourcesState: AvailableResourcesState = {
 };
 
 
-export const defectiveResourcesState: DefectiveResourcesState = {
-  defectiveResources:0,
+export const allocatedResourcesState: AllocatedResourcesState = {
+  allocatedResources:0,
   message: ''
 };
 
@@ -104,11 +104,11 @@ export function availableResourcesReducer(state = availableResourcesState, actio
     }
 }
 
-export function defectiveResourcesReducer(state = defectiveResourcesState, action: DashboardActionTypes.DashboardActions):DefectiveResourcesState {
+export function allocatedResourcesReducer(state = allocatedResourcesState, action: DashboardActionTypes.DashboardActions):AllocatedResourcesState {
   switch (action.type) {
-    case DashboardActionTypes.DEFECTIVE_RESOURCES_SUCCESS:
+    case DashboardActionTypes.ALLOCATED_RESOURCES_SUCCESS:
     return {
-    defectiveResources: action.defectiveResourceCount, message: 'Success'
+    allocatedResources: action.allocatedResourceCount, message: 'Success'
   };
   
     default:

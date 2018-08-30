@@ -12,8 +12,8 @@ import { Action } from '@ngrx/store';
   export const AVAILABLE_RESOURCES = '[AvailableResource] Load AvailableResource';
   export const AVAILABLE_RESOURCES_SUCCESS = '[AvailableResourceSuccess] Load AvailableResource';
 
-  export const DEFECTIVE_RESOURCES = '[DefectiveResource] Load DefectiveResource';
-  export const DEFECTIVE_RESOURCES_SUCCESS = '[DefectiveResourceSuccess] Load DefectiveResourceSuccess';
+  export const ALLOCATED_RESOURCES = '[AllocatedResource] Load AllocatedResource';
+  export const ALLOCATED_RESOURCES_SUCCESS = '[AllocatedResourceSuccess] Load AllocatedResourceSuccess';
 
   export const TOTAL_ASSETS = '[TotalAssets] Load TotalAssets';
   export const TOTAL_ASSETS_SUCCESS = '[TotalAssetsSuccess] Load TotalAssets';
@@ -68,12 +68,12 @@ export class getAvailableResourceSuccess implements Action {
     }
 }
 
-export class defectiveResources implements Action {
-  readonly type = DEFECTIVE_RESOURCES;
+export class allocatedResources implements Action {
+  readonly type = ALLOCATED_RESOURCES;
 }
-export class getdefectiveResourceSuccess implements Action {
-    readonly type = DEFECTIVE_RESOURCES_SUCCESS;
-    constructor(public defectiveResourceCount: any) {
+export class getallocatedResourceSuccess implements Action {
+    readonly type = ALLOCATED_RESOURCES_SUCCESS;
+    constructor(public allocatedResourceCount: any) {
     }
 }
 
@@ -131,8 +131,8 @@ totalResources |
 getTotalResourceSuccess |
 availableResources |
 getAvailableResourceSuccess |
-defectiveResources |
-getdefectiveResourceSuccess |
+allocatedResources |
+getallocatedResourceSuccess |
 totalAssets |
 gettotalAssetsSuccess |
 availableAssets |

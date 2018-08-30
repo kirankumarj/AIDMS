@@ -13,7 +13,7 @@ export interface AppState{
     inProgressIncidents:InProgressIncidentsState;
     totalResources:TotalResourcesState;
     availableResources:AvailableResourcesState;
-    defectiveResources:DefectiveResourcesState;
+    allocatedResources:AllocatedResourcesState;
     totalAssets:TotalAssetsState;
     availableAssets:AvailableAssetsState;
     defectiveAssets:DefectiveAssetsState;
@@ -58,8 +58,8 @@ export interface AvailableResourcesState {
     message:any;
 }
 
-export interface DefectiveResourcesState {
-    defectiveResources:any;
+export interface AllocatedResourcesState {
+    allocatedResources:any;
     message:any;
 }
 

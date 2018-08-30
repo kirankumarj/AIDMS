@@ -26,8 +26,8 @@ export class IncidentCountService {
     return this.restService.findAll(AppConstants.GET_AVAILABLE_RESOURCES_COUNT);
   }
 
-  public getDefectiveResourceCount(): Observable<any> {
-    return this.restService.findAll(AppConstants.GET_DEFECTIVE_RESOURCES_COUNT);
+  public getAllocatedResourceCount(): Observable<any> {
+    return this.restService.findAll(AppConstants.GET_ALLOCATED_RESOURCES_COUNT);
   }
 
   public getTotalAssetsCount(): Observable<any> {

@@ -40,10 +40,10 @@ export class DashboardEffects {
   )
 
   @Effect()
-  getDefectiveResourcesCount$:Observable<Action>=this.actions$
-  .ofType(DashboardActionTypes.DEFECTIVE_RESOURCES)
-  .pipe(switchMap(()=>this.inc.getDefectiveResourceCount()),
-      map(res =>new DashboardActionTypes.getdefectiveResourceSuccess(res))
+  getAllocatedResourcesCount$:Observable<Action>=this.actions$
+  .ofType(DashboardActionTypes.ALLOCATED_RESOURCES)
+  .pipe(switchMap(()=>this.inc.getAllocatedResourceCount()),
+      map(res =>new DashboardActionTypes.getallocatedResourceSuccess(res))
   )
 
   @Effect()

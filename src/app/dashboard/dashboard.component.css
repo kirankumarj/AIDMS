@@ -26,7 +26,7 @@
 }
 
 div#search input {
-	width: 530px;
+	width: 405px;
 }
 div#results {
 	font-style: sans-serif;
@@ -40,7 +40,7 @@ div#search {
     top: 50px;
     height: auto;
     padding: 2px;
-    width: 537px;
+    width: 410px;
     font-size: 15px;
 }
 

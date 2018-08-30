@@ -7,7 +7,7 @@ export class AppConstants {
   public static GET_INPROGESS_INCIDENT_COUNT = AppConstants.QDMP_URI + 'incidents/count';
   public static GET_TOTAL_RESOURCES_COUNT = AppConstants.QDMP_URI + 'incidents/count';
   public static GET_AVAILABLE_RESOURCES_COUNT = AppConstants.QDMP_URI + 'incidents/count';
-  public static GET_DEFECTIVE_RESOURCES_COUNT = AppConstants.QDMP_URI + 'incidents/count';
+  public static GET_ALLOCATED_RESOURCES_COUNT = AppConstants.QDMP_URI + 'incidents/count';
   public static GET_TOTAL_ASSETS = AppConstants.QDMP_URI + 'incidents/count';
   public static GET_AVAILABLE_ASSETS = AppConstants.QDMP_URI + 'incidents/count';
   public static GET_DEFECTIVE_ASSETS = AppConstants.QDMP_URI + 'incidents/count';
