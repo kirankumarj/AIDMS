@@ -40,10 +40,10 @@ const routes: Routes = [
   { path: 'shelter-create', component: ShelterCreateComponent},
   { path: 'shelter-view', component: ShelterViewComponent},
   // { path: 'assert-create', component: AssertCreateComponent},
-  { path: 'assert-create', component: CreateAssetsComponent},
+  { path: 'assets-create', component: CreateAssetsComponent},
   // { path: 'assert-view', component: AssertViewComponent},
-  { path: 'assert-view', component: ViewAssetsComponent},
-  { path: 'assert-view', component: AssertViewComponent},
+  { path: 'assets-view', component: ViewAssetsComponent},
+  { path: 'assets-view', component: AssertViewComponent},
   { path: 'incident-process', component: IncidentProcessComponent}
 
 ];
