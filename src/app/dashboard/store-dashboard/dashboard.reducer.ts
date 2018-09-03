@@ -46,8 +46,8 @@ export const defectiveAssetsState: DefectiveAssetsState = {
 
 export const liveNewsState: LiveNewsState = {
   liveNewsFeed: [{
-    newsdesc:'',
-  }],message:''
+    newsdesc:'No News Feed',
+  }],message:'No News Feed'
 };
 
 export const notificationState: NotificationState = {
