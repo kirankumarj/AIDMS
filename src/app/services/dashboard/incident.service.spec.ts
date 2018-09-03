@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { IncidentService } from './incident.service';
+import { IncidentCountService } from './incident.service';
 
-describe('IncidentService', () => {
+describe('IncidentCountService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [IncidentService]
+      providers: [IncidentCountService]
     });
   });
 
-  it('should be created', inject([IncidentService], (service: IncidentService) => {
+  it('should be created', inject([IncidentCountService], (service: IncidentCountService) => {
     expect(service).toBeTruthy();
   }));
 });
