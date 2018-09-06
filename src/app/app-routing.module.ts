@@ -42,8 +42,7 @@ const routes: Routes = [
   // { path: 'assert-create', component: AssertCreateComponent},
   { path: 'assets-create', component: CreateAssetsComponent},
   // { path: 'assert-view', component: AssertViewComponent},
-  { path: 'assets-view', component: ViewAssetsComponent},
-  { path: 'assets-view', component: AssertViewComponent},
+  { path: 'assert-view', component: ViewAssetsComponent},
   { path: 'incident-process', component: IncidentProcessComponent}
 
 ];

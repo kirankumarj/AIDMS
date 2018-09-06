@@ -2,12 +2,12 @@ import * as DashboardActionTypes from './dashboard.actions';
 import { OpenIncidentsState, InProgressIncidentsState, TotalResourcesState, AvailableResourcesState,AllocatedResourcesState, TotalAssetsState,AvailableAssetsState,DefectiveAssetsState, LiveNewsState, NotificationState } from "src/app/app.state";
 
 export const openIncidentsState: OpenIncidentsState = {
-  openIncidents:9,
+  openIncidents:0,
   message: ''
 };
 
 export const inProgressIncidentsState: InProgressIncidentsState = {
-  inProgressIncidents:9,
+  inProgressIncidents:0,
   message: ''
 };
 
