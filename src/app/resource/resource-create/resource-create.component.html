@@ -12,7 +12,7 @@
               </mat-expansion-panel-header>
 
               <mat-form-field>
-                <input matInput placeholder="resource Name" [(ngModel)]="newResource.name" [value]=newResource.name>
+                <input matInput placeholder="Resource Name" [(ngModel)]="newResource.name" [value]=newResource.name>
               </mat-form-field>
 
               <mat-form-field>
@@ -38,7 +38,7 @@
                   Other Details
                 </mat-panel-title>
                 <mat-panel-description>
-                  Enter Email Id and Dept info
+                  Enter Email Id and Dept Info
                 </mat-panel-description>
               </mat-expansion-panel-header>
 
@@ -71,8 +71,20 @@
                 </mat-form-field>
 
                 <mat-form-field>
-                  <input matInput placeholder="email Id" [(ngModel)]="newResource.email" [value]=newResource.email>
+                  <input matInput placeholder="Email Id" [(ngModel)]="newResource.email" [value]=newResource.email>
                 </mat-form-field>
+
+                <mat-form-field>
+                  <input matInput placeholder="Contact Number" [(ngModel)]="newResource.phone" [value]=newResource.phone>
+                </mat-form-field>
+
+                <mat-form-field>
+                  <mat-select placeholder="Skills" multiple [(ngModel)]="newResource.skill">
+                    <mat-option *ngFor="let skill of skillsList" [value]="skill">{{skill}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+  
+
 
 
               <mat-action-row>
@@ -87,14 +99,14 @@
                   Map Location
                 </mat-panel-title>
                 <mat-panel-description>
-                  Map location Details
+                  Map Location Details
                 </mat-panel-description>
               </mat-expansion-panel-header>
                   <mat-form-field>
                       <input matInput type="text" placeholder="City" [(ngModel)]="newResource.address.city" [value]=newResource.address.city (keypress)="loadMap()">
                   </mat-form-field>
                   <mat-form-field>
-                    <input matInput type="text" placeholder="state district" [(ngModel)]="newResource.address.state_district" [value]=newResource.address.state_district (keypress)="loadMap()">
+                    <input matInput type="text" placeholder="State District" [(ngModel)]="newResource.address.state_district" [value]=newResource.address.state_district (keypress)="loadMap()">
                   </mat-form-field>
                   <mat-form-field>
                     <input matInput type="text" placeholder="State" [(ngModel)]="newResource.address.state" [value]=newResource.address.state (keypress)="loadMap()">

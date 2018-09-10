@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { InfoService } from '../../info.service';
 import { OrgMapInfo } from '../../models/organization/OrgMapInfo';
 import { MatSnackBar } from '@angular/material';
@@ -14,6 +14,7 @@ import {AppState} from '../../app.state';
 import { AddResource } from '../store/resource.actions';
 import { Resource } from '../../models/resource';
 import { GetAllOrganization } from '../../org/store/org.actions';
+import { FormControl } from '@angular/forms';
 
 
 @Component({
@@ -23,6 +24,7 @@ import { GetAllOrganization } from '../../org/store/org.actions';
 })
 
 export class ResourceCreateComponent implements OnInit, AfterViewInit {
+  skillsList: string[] = ['Swimming', 'First Aid', 'Running', 'Weight Lifter', 'Driver'];
   resurce: Resource;
   step = 0;
   searchAddress;
@@ -38,6 +40,8 @@ export class ResourceCreateComponent implements OnInit, AfterViewInit {
     org: '',
     dept: '',
     job: '',
+    skill:'',
+    phone:'',
     email: '',
     name: '',
     latitude: 0,
@@ -179,6 +183,7 @@ mapValues(fromAddress, toAddress) {
     this.newResource.address.state_district = '';
     this.step = 0;
   }
+  
 
   getAllOrganizations() {
     this.store.dispatch(new GetAllOrganization());
@@ -192,5 +197,6 @@ mapValues(fromAddress, toAddress) {
       this.step = 0;
     });
   }
+  
 }
 
