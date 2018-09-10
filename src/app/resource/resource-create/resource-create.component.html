@@ -106,7 +106,7 @@
                       <input matInput type="text" placeholder="City" [(ngModel)]="newResource.address.city" [value]=newResource.address.city (keypress)="loadMap()">
                   </mat-form-field>
                   <mat-form-field>
-                    <input matInput type="text" placeholder="State District" [(ngModel)]="newResource.address.state_district" [value]=newResource.address.state_district (keypress)="loadMap()">
+                    <input matInput type="text" placeholder="District" [(ngModel)]="newResource.address.state_district" [value]=newResource.address.state_district (keypress)="loadMap()">
                   </mat-form-field>
                   <mat-form-field>
                     <input matInput type="text" placeholder="State" [(ngModel)]="newResource.address.state" [value]=newResource.address.state (keypress)="loadMap()">
@@ -117,6 +117,7 @@
                   <mat-form-field>
                       <input matInput type="text" placeholder="Pin Code" [(ngModel)]="newResource.address.postcode" [value]=newResource.address.postcode (keypress)="loadMap()">
                   </mat-form-field>
+                  
 
               <mat-action-row>
                 <button mat-button color="warn" (click)="prevStep()">Previous</button>
