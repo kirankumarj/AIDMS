@@ -13,10 +13,9 @@ td, th {
   width: 25%;
 }
 
-
 .container{
   width:100%;
-  height: 540px;
+  height: 520px;
 }
 #info{margin-top: 100px; position:fixed;background-color:rgba(13, 13, 13, 0.5);padding:10px 10px 10px 10px;font:13px bold sans-serif;color:#fff;left:0px;top:0px;width:100%;height:140px;overflow:hidden}
 
@@ -47,7 +46,7 @@ table {
 }
 
 div#search input {
-	width: 530px;
+	width: 99%;
 }
 div#results {
 	font-style: sans-serif;
@@ -57,11 +56,11 @@ div#results {
 
 div#search {
     background-color: lightgray;
-    position: absolute;
+    /* position: absolute; */
     top: 50px;
     height: auto;
     padding: 2px;
-    width: 537px;
+    width: 99.5%;
     font-size: 15px;
 }
 

@@ -1,4 +1,5 @@
 <div id="wrapper">
+  <!-- <h3 style="color:  gray; padding-left: 10px;">Create Organization</h3> -->
     <div id="leftcolumn">
         <mat-accordion class="example-headers-align">
             <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
@@ -19,6 +20,18 @@
                 <input matInput placeholder="Organization Type" [(ngModel)]="newOrg.type" [value]=newOrg.type>
               </mat-form-field>
 
+              <mat-form-field>
+                <mat-select placeholder="Organization Sector">
+                  <mat-option value="sector">Sector 1</mat-option>
+                  <mat-option value="sector">Sector 2</mat-option>
+                  <mat-option value="sector">Sector 3</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field>
+                <input matInput placeholder="Organization Info" [(ngModel)]="newOrg.info" [value]=newOrg.info>
+              </mat-form-field>
+
               <mat-action-row>
                 <button mat-button color="primary" (click)="nextStep()">Next</button>
               </mat-action-row>
@@ -27,10 +40,10 @@
             <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
               <mat-expansion-panel-header>
                 <mat-panel-title>
-                  Other Details
+                  Organization
                 </mat-panel-title>
                 <mat-panel-description>
-                  Enter Id and info
+                  Contact Details
                 </mat-panel-description>
               </mat-expansion-panel-header>
 
@@ -38,8 +51,15 @@
                   <input matInput placeholder="Organization Id" [(ngModel)]="newOrg.id" [value]=newOrg.id>
                 </mat-form-field> -->
 
-                <mat-form-field>
+                <!-- <mat-form-field>
                   <input matInput placeholder="Organization Info" [(ngModel)]="newOrg.info" [value]=newOrg.info>
+                </mat-form-field> -->
+                <mat-form-field>
+                  <input matInput placeholder="Enter Person Name" [(ngModel)]="newOrg.info" [value]=newOrg.info>
+                </mat-form-field>
+
+                <mat-form-field>
+                  <input matInput type="number" placeholder="Enter Phone number" [(ngModel)]="newOrg.info" [value]=newOrg.info>
                 </mat-form-field>
 
               <mat-action-row>
@@ -83,12 +103,13 @@
 
 
     <div id="rightcolumn" style="color:black;">
+        <div id="search">
+            <input type="text" (keyup)="searchMapLocationBySearchData()" id="mapSearch" [(ngModel)]="searchAddress" type="text" name="addr" value="" id="addr" size="10" placeholder="Search location"/>
+            <div *ngFor="let addressDetails of address">
+              <div (click)="moveMap(addressDetails)" style="border: 1px solid black; margin: 0.5 px;">{{addressDetails.display_name}}</div>
+             </div>
+          </div>
+
           <div id="map" class="container"></div>
-          <div id="search">
-              <input type="text" (keyup)="searchMapLocationBySearchData()" id="mapSearch" [(ngModel)]="searchAddress" type="text" name="addr" value="" id="addr" size="10" placeholder="Search location"/>
-              <div *ngFor="let addressDetails of address">
-                <div (click)="moveMap(addressDetails)" style="border: 1px solid black; margin: 0.5 px;">{{addressDetails.display_name}}</div>
-               </div>
-            </div>
     </div>
   </div>
