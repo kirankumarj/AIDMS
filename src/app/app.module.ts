@@ -61,7 +61,7 @@ import { AssetsService } from './services/assets/assets.service';
 import { AssetsEffects } from './new-assets/store/assets.effects';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ViewAssetsComponent } from './new-assets/view-assets/view-assets.component';
-import {IncidentCountService} from './services/dashboard/incident.service';
+import {DashboardService} from './services/dashboard/dashboard.service';
 import {DashboardEffects} from './dashboard/store-dashboard/dashboard.effects';
 import { ResourceEffects } from './resource/store/resource.effects';
 import { ResourceService } from './services/resource.service';
@@ -140,7 +140,7 @@ import { ShelterEffects } from 'src/app/shelter/store/shelter.effects';
     OverlayDeleteComponent,
     OverlayUpdateOrgComponent
   ],
-  providers: [ InfoService, RestService, OrganizationService , AssetsService, IncidentCountService, ResourceService, ShelterService],
+  providers: [ InfoService, RestService, OrganizationService , AssetsService, DashboardService, ResourceService, ShelterService],
   bootstrap: [AppComponent],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

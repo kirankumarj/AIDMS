@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { InfoService } from '../info.service';
+import {DashboardService } from '../services/dashboard/dashboard.service'
 import * as maptalks from 'maptalks';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { PopupComponent } from '../popup/popup.component';
@@ -30,7 +31,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   totalAssets:any;
   availableAssets:any;
   defectiveAssets:any;
-  liveNewsFeed:any;
+  liveNewsFeedFB:any;
+  liveNewsFeedTW:any;
   notifications:any;
   step = 0;
 
@@ -60,7 +62,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     }
   };
 
-  constructor(private router: Router, private service: InfoService, private store: Store<AppState>) { }
+  constructor(private router: Router, private service: InfoService, private dashboardService: DashboardService, private store: Store<AppState>) { }
   ngOnInit() {
     this.newOrg.latitude = 78.498;
     this.newOrg.longitude = 17.476;
@@ -71,12 +73,26 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.dataSource = new MatTableDataSource<OrgMapInfo>(this.dashboardMapAssertsList);
 
     //read RSS Feed to get notifications
-    this.service.getRssFeed().subscribe(result => {
+    this.dashboardService.getRssFeed().subscribe(result => {
     var x2js = new X2JS();
     var jsonObj = x2js.xml_str2json(result);
     this.notifications = jsonObj.feed.entry;
     }, error => {
       console.log("Notifications Error::::",error);
+    })
+
+    //read Facebook Feed to get livenewsfeed
+    this.dashboardService.getFacebookFeed().subscribe(res => {
+      this.liveNewsFeedFB = res;
+      }, error => {
+      console.log("Facebook Error::::",error);
+    })
+
+    //read Twitter Feed to get livenewsfeed
+    this.dashboardService.getTwitterFeed().subscribe(res => {
+      this.liveNewsFeedTW = res;
+      }, error => {
+      console.log("Twitter Error::::",error);
     })
 
     this.store.dispatch(new dashboardAction.openIncidents());

@@ -107,9 +107,7 @@ export class InfoService {
     this.maps.next(shelterMapInfo);
   }
 
-  getRssFeed(): Observable<any> {
-    return this.http.get('https://www.reddit.com/.rss', { responseType: 'text' });
-  }
+ 
 
 
 

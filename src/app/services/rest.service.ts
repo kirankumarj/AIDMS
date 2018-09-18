@@ -13,6 +13,18 @@ export class RestService {
     return this.http.get<T>(url);
   }
 
+  public getRssFeedResponse(url): Observable<any> {
+    return this.http.get(url, { responseType: 'text' });
+  }
+
+  public getFacebookFeedResponse(url): Observable<any> {
+    return this.http.get(url, { responseType: 'text' });
+  }
+
+  public getTwitterFeedResponse(url): Observable<any> {
+    return this.http.get(url, { responseType: 'text' });
+  }
+
   public findOne<T>(id: any, url: string): Observable<T> {
     return this.http.get<T>(url + id);
   }

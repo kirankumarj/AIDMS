@@ -1,14 +1,20 @@
 import { Injectable } from '@angular/core';
 import {RestService} from '../rest.service';
-import {Observable} from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import {AppConstants} from '../../app.constants';
-
+import { mockData } from '../../dashboard/mock/mockservicedata';
 @Injectable({
   providedIn: 'root'
 })
-export class IncidentCountService {
-
-  constructor(private restService: RestService) { }
+export class DashboardService {
+  facebookFeed;
+  fbNews;
+  twitterFeed;
+  twNews;
+  constructor(private restService: RestService) { 
+    this.facebookFeed = mockData.fbfeed;
+    this.twitterFeed = mockData.twfeed;
+  }
 
   public getOpenIncidentCount(): Observable<any> {
     return this.restService.findAll(AppConstants.GET_OPEN_INCIDENT_COUNT);
@@ -49,5 +55,20 @@ export class IncidentCountService {
   public getNotification(): Observable<any> {
     return this.restService.findAll(AppConstants.GET_NOTIFICATIONS);
   }
+
+  public getRssFeed(): Observable<any> {
+    return this.restService.getRssFeedResponse(AppConstants.GET_RSSFEED);
+  }
+
+  public getFacebookFeed(): Observable<any> {
+    //return this.restService.getFacebookFeedResponse(AppConstants.GET_FACEBOOKFEED);
+    return this.fbNews = new BehaviorSubject<any>(this.facebookFeed).asObservable();
+  }
+
+  public getTwitterFeed(): Observable<any> {
+    //return this.restService.getTwitterFeedResponse(AppConstants.GET_TWITTERFEED);
+    return this.twNews = new BehaviorSubject<any>(this.twitterFeed).asObservable();
+  }
+
 
 }

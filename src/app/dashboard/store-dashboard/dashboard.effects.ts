@@ -4,12 +4,12 @@ import * as DashboardActionTypes from './dashboard.actions';
 import { switchMap, map } from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {Action} from '@ngrx/store';
-import {IncidentCountService} from '../../services/dashboard/incident.service';
+import {DashboardService} from '../../services/dashboard/dashboard.service';
 
 @Injectable()
 export class DashboardEffects {
 
-  constructor(private actions$: Actions, private inc: IncidentCountService) {}
+  constructor(private actions$: Actions, private inc: DashboardService) {}
 
   @Effect()
   getOpenIncidentsCount$:Observable<Action>=this.actions$

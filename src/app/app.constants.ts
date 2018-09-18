@@ -13,6 +13,9 @@ export class AppConstants {
   public static GET_DEFECTIVE_ASSETS = AppConstants.QDMP_URI + 'incidents/count';
   public static GET_LIVE_NEWS_FEED = AppConstants.QDMP_URI + 'livenewsfeeds';
   public static GET_NOTIFICATIONS = AppConstants.QDMP_URI + 'notifications';
+  public static GET_RSSFEED = 'https://www.reddit.com/.rss';
+  public static GET_FACEBOOKFEED = '';
+  public static GET_TWITTERFEED = '';
   public static RESOURCES_URL = AppConstants.QDMP_URI + '/resources';
   public static DELETE_ORGANIZATION = function (orgId: string) {
     return AppConstants.QDMP_URI + `dmorg/${orgId}`;
