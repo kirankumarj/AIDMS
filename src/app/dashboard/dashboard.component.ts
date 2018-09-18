@@ -10,6 +10,7 @@ import {AppState} from '../app.state';
 import { Store } from '@ngrx/store';
 import * as dashboardAction from '././store-dashboard/dashboard.actions';
 import { OrgMapInfo } from '././../models/organization/OrgMapInfo';
+import X2JS from 'node-x2js';
 
 
 
@@ -69,6 +70,15 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
     this.dataSource = new MatTableDataSource<OrgMapInfo>(this.dashboardMapAssertsList);
 
+    //read RSS Feed to get notifications
+    this.service.getRssFeed().subscribe(result => {
+    var x2js = new X2JS();
+    var jsonObj = x2js.xml_str2json(result);
+    this.notifications = jsonObj.feed.entry;
+    }, error => {
+      console.log("Notifications Error::::",error);
+    })
+
     this.store.dispatch(new dashboardAction.openIncidents());
     this.store.dispatch(new dashboardAction.inProgressIncidents());
     this.store.dispatch(new dashboardAction.totalResources());
@@ -77,8 +87,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.store.dispatch(new dashboardAction.totalAssets());
     this.store.dispatch(new dashboardAction.availableAssets());
     this.store.dispatch(new dashboardAction.defectiveAssets());
-    this.store.dispatch(new dashboardAction.liveNewsFeed());
-    this.store.dispatch(new dashboardAction.notifications());
+    //this.store.dispatch(new dashboardAction.liveNewsFeed());
+    //this.store.dispatch(new dashboardAction.notifications());
     
 
     
@@ -113,15 +123,15 @@ export class DashboardComponent implements OnInit, AfterViewInit {
      this.store.select('defectiveAssets').subscribe((res)=>{
       this.defectiveAssets = res.defectiveAssets;
      });
-   
+    /*
      this.store.select('liveNewsFeed').subscribe((res)=>{
       this.liveNewsFeed = res.liveNewsFeed;
      });
-
+    
      this.store.select('notifications').subscribe((res)=>{
       this.notifications = res.notifications;
      });
-
+    */
     
   }
   ngAfterViewInit() {

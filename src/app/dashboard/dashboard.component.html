@@ -3,39 +3,50 @@
       <mat-card class="mat-card-status">
           <mat-card-subtitle style="color:black"><h4>Availabilty Status</h4></mat-card-subtitle><mat-divider></mat-divider>
           <mat-list role="list">
-              <mat-list-item role="listitem"><a style="cursor:pointer;" (click)="goto('incident-view')">Open Incidents - {{openIncidents}}</a></mat-list-item>
-              <mat-list-item role="listitem"><a style="cursor:pointer;" (click)="goto('incident-view')">In-Progress - {{inProgressIncidents}}</a></mat-list-item>
-              <mat-list-item role="listitem"><a style="cursor:pointer;" (click)="goto('resource-view')">Total Resources - {{totalResources}}</a></mat-list-item>
-              <mat-list-item role="listitem"><a style="cursor:pointer;" (click)="goto('resource-view')">Available Resources - {{availableResources}}</a></mat-list-item>
-              <mat-list-item role="listitem"><a style="cursor:pointer;" (click)="goto('resource-view')">Allocated Resources - {{allocatedResources}}</a></mat-list-item>
-              <mat-list-item role="listitem"><a style="cursor:pointer;" (click)="goto('assert-view')">Total Assets - {{totalAssets}}</a></mat-list-item>
-              <mat-list-item role="listitem"><a style="cursor:pointer;" (click)="goto('assert-view')">Available Assets - {{availableAssets}}</a></mat-list-item>
-              <mat-list-item role="listitem"><a style="cursor:pointer;" (click)="goto('assert-view')">Defective Assets - {{defectiveAssets}}</a></mat-list-item>
+              <mat-list-item role="listitem" style="height: 30px; font-size: 15px;"><a style="cursor:pointer;" (click)="goto('incident-view')">Open Incidents - {{openIncidents}}</a></mat-list-item>
+              <mat-list-item role="listitem" style="height: 30px; font-size: 15px;"><a style="cursor:pointer;" (click)="goto('incident-view')">In-Progress - {{inProgressIncidents}}</a></mat-list-item>
+              <mat-list-item role="listitem" style="height: 30px; font-size: 15px;"><a style="cursor:pointer;" (click)="goto('resource-view')">Total Resources - {{totalResources}}</a></mat-list-item>
+              <mat-list-item role="listitem" style="height: 30px; font-size: 15px;"><a style="cursor:pointer;" (click)="goto('resource-view')">Available Resources - {{availableResources}}</a></mat-list-item>
+              <mat-list-item role="listitem" style="height: 30px; font-size: 15px;"><a style="cursor:pointer;" (click)="goto('resource-view')">Allocated Resources - {{allocatedResources}}</a></mat-list-item>
+              <mat-list-item role="listitem" style="height: 30px; font-size: 15px;"><a style="cursor:pointer;" (click)="goto('assert-view')">Total Assets - {{totalAssets}}</a></mat-list-item>
+              <mat-list-item role="listitem" style="height: 30px; font-size: 15px;"><a style="cursor:pointer;" (click)="goto('assert-view')">Available Assets - {{availableAssets}}</a></mat-list-item>
+              <mat-list-item role="listitem" style="height: 30px; font-size: 15px;"><a style="cursor:pointer;" (click)="goto('assert-view')">Defective Assets - {{defectiveAssets}}</a></mat-list-item>
           </mat-list>
+          <mat-card-subtitle style="color:black"><h4>Notifications<mat-icon style="color:red"><span class="notification-icon">notifications</span></mat-icon></h4></mat-card-subtitle><mat-divider></mat-divider>
+            <marquee behavior="scroll" direction="up" scrollamount="4" class="marquee-custom" onmouseover="this.stop();" onmouseout="this.start();">
+            <mat-list role="list">
+                <mat-list-item class="mat-list-item-custom" style="height: 28px;" *ngFor="let data of notifications">
+                  <a href="" mat-wrap>{{data.title | slice: 0 : 40}}...</a>
+                </mat-list-item>
+          </mat-list>
+        </marquee>
         </mat-card>   
+
   </div>
   <div id="leftcolumn">
          <mat-card class="mat-card-custom">
-            <mat-card-subtitle style="color:black"><h4><span class="blinking">Live News Feeds</span></h4></mat-card-subtitle><mat-divider></mat-divider>
+            <mat-card-subtitle style="color:black"><h4><span class="blinking">Live News Feeds from Facebook</span></h4></mat-card-subtitle><mat-divider></mat-divider>
             <marquee behavior="scroll" direction="up" scrollamount="3" class="marquee-custom" onmouseover="this.stop();" onmouseout="this.start();">
               <mat-list role="list">
-                  <mat-list-item class="mat-list-item-custom" *ngFor="let data of liveNewsFeed">
-                      <a href="" mat-wrap>{{data.newsdesc}}</a>
+                  <mat-list-item class="mat-list-item-custom" style="height: 28px;" *ngFor="let data of liveNewsFeed">
+                      <a href="" mat-wrap>{{data.title | slice: 0 : 40}}...</a>
                   </mat-list-item>
               </mat-list>
             </marquee>
         </mat-card>
 
         <mat-card class="mat-card-custom">
-              <mat-card-subtitle style="color:black"><h4>Notifications<mat-icon style="color:red"><span class="notification-icon">notifications</span></mat-icon></h4></mat-card-subtitle><mat-divider></mat-divider>
-              <marquee behavior="scroll" direction="up" scrollamount="4" class="marquee-custom" onmouseover="this.stop();" onmouseout="this.start();">
+            <mat-card-subtitle style="color:black"><h4><span class="blinking">Live News Feeds from Twitter</span></h4></mat-card-subtitle><mat-divider></mat-divider>
+            <marquee behavior="scroll" direction="up" scrollamount="3" class="marquee-custom" onmouseover="this.stop();" onmouseout="this.start();">
               <mat-list role="list">
-                  <mat-list-item class="mat-list-item-custom" *ngFor="let data of notifications">
-                      <a href="" mat-wrap>{{data.desc}}</a>
+                  <mat-list-item class="mat-list-item-custom" style="height: 28px;" *ngFor="let data of liveNewsFeed">
+                      <a href="" mat-wrap>{{data.title | slice: 0 : 40}}...</a>
                   </mat-list-item>
-            </mat-list>
-          </marquee>
-          </mat-card>
+              </mat-list>
+            </marquee>
+        </mat-card>
+
+        
 
   </div>
   <div id="rightcolumn" style="color:black;">

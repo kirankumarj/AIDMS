@@ -76,3 +76,8 @@ div#search {
 .mat-card-status {
   padding-top: 1px; color:black; height:93%;  padding-top: 1px; border: 6px solid #ecafaf; border-radius: 19px;
 }
+
+.font-style-custom {
+  height: 30px; 
+  font-size: 15px;
+}
