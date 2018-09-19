@@ -61,8 +61,13 @@ export class DashboardService {
   }
 
   public getFacebookFeed(): Observable<any> {
-    //return this.restService.getFacebookFeedResponse(AppConstants.GET_FACEBOOKFEED);
-    return this.fbNews = new BehaviorSubject<any>(this.facebookFeed).asObservable();
+      /*
+      var response = this.restService.getFacebookFeedResponse(AppConstants.GET_FACEBOOK_ACCESSTOKEN(AppConstants.APPID,AppConstants.SECRET_KEY));
+      return this.restService.getFacebookFeedResponse(AppConstants.GET_FACEBOOKFEED(AppConstants.FBID, response.access_token));
+      */
+     
+      //Mock Data Call
+      return this.fbNews = new BehaviorSubject<any>(this.facebookFeed).asObservable();
   }
 
   public getTwitterFeed(): Observable<any> {

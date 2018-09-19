@@ -5,16 +5,24 @@ export class AppConstants {
   public static ORGANIZATION_URL = AppConstants.QDMP_URI + '/dmorg';
   public static GET_OPEN_INCIDENT_COUNT = AppConstants.QDMP_URI + 'incidents/count';
   public static GET_INPROGESS_INCIDENT_COUNT = AppConstants.QDMP_URI + 'incidents/count';
-  public static GET_TOTAL_RESOURCES_COUNT = AppConstants.QDMP_URI + 'incidents/count';
+  public static GET_TOTAL_RESOURCES_COUNT = AppConstants.QDMP_URI + 'resources/count';
   public static GET_AVAILABLE_RESOURCES_COUNT = AppConstants.QDMP_URI + 'incidents/count';
   public static GET_ALLOCATED_RESOURCES_COUNT = AppConstants.QDMP_URI + 'incidents/count';
-  public static GET_TOTAL_ASSETS = AppConstants.QDMP_URI + 'incidents/count';
+  public static GET_TOTAL_ASSETS = AppConstants.QDMP_URI + 'assets/count';
   public static GET_AVAILABLE_ASSETS = AppConstants.QDMP_URI + 'incidents/count';
   public static GET_DEFECTIVE_ASSETS = AppConstants.QDMP_URI + 'incidents/count';
   public static GET_LIVE_NEWS_FEED = AppConstants.QDMP_URI + 'livenewsfeeds';
   public static GET_NOTIFICATIONS = AppConstants.QDMP_URI + 'notifications';
   public static GET_RSSFEED = 'https://www.reddit.com/.rss';
-  public static GET_FACEBOOKFEED = '';
+  public static APPID = '';
+  public static SECRET_KEY = '';
+  public static FBID = '';
+  public static GET_FACEBOOK_ACCESSTOKEN = function (appId: string, secretKey:string) {
+    return 'https://graph.facebook.com/oauth/access_token?client_id='+`${appId}`+'&client_secret='+`${secretKey}`+'&grant_type=client_credentials';
+  };
+  public static GET_FACEBOOKFEED = function (fbId: string, accessToken:string) {
+    return 'https://graph.facebook.com/v2.9/'+`${fbId}`+'/posts?access_token='+`${accessToken}`;
+  };
   public static GET_TWITTERFEED = '';
   public static RESOURCES_URL = AppConstants.QDMP_URI + '/resources';
   public static DELETE_ORGANIZATION = function (orgId: string) {
