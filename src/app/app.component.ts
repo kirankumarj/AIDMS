@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+import { DashboardService } from './services/dashboard/dashboard.service';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,7 @@ export class AppComponent implements OnInit {
   linkActive = 'dashboard';
   presentValue;
   originalPath: string;
-  constructor(private locaton: Location) {
+  constructor(private locaton: Location,private dashboardService:DashboardService) {
   }
   ngOnInit() {
     this.originalPath = window.location.pathname;
@@ -20,7 +21,10 @@ export class AppComponent implements OnInit {
      } else {
       this.linkActive = this.originalPath.substr(1, this.originalPath.indexOf('-') - 1);
     }
-    console.log(this.linkActive);
+    
+    this.dashboardService.change.subscribe(linkActive => {
+      this.linkActive = linkActive;
+    });
   }
   activeClass(linkactive: string) {
         this.linkActive = linkactive;

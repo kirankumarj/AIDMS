@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable,Output,EventEmitter } from '@angular/core';
 import {RestService} from '../rest.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import {AppConstants} from '../../app.constants';
@@ -11,6 +11,7 @@ export class DashboardService {
   fbNews;
   twitterFeed;
   twNews;
+  @Output() change: EventEmitter<string> = new EventEmitter();
   constructor(private restService: RestService) { 
     this.facebookFeed = mockData.fbfeed;
     this.twitterFeed = mockData.twfeed;
@@ -65,7 +66,7 @@ export class DashboardService {
       var response = this.restService.getFacebookFeedResponse(AppConstants.GET_FACEBOOK_ACCESSTOKEN(AppConstants.APPID,AppConstants.SECRET_KEY));
       return this.restService.getFacebookFeedResponse(AppConstants.GET_FACEBOOKFEED(AppConstants.FBID, response.access_token));
       */
-     
+
       //Mock Data Call
       return this.fbNews = new BehaviorSubject<any>(this.facebookFeed).asObservable();
   }
@@ -75,5 +76,6 @@ export class DashboardService {
     return this.twNews = new BehaviorSubject<any>(this.twitterFeed).asObservable();
   }
 
+ 
 
 }

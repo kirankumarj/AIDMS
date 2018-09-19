@@ -22,7 +22,7 @@ import X2JS from 'node-x2js';
 })
 export class DashboardComponent implements OnInit, AfterViewInit {
 
-  
+  linkActive = '';
   openIncidents:any;
   inProgressIncidents:any;
   totalResources:any;
@@ -117,7 +117,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
      });
 
      this.store.select('totalResources').subscribe((res)=>{
-      this.totalResources = res.totalResources;
+      this.totalResources = res.totalResources.count;
      });
 
      this.store.select('availableResources').subscribe((res)=>{
@@ -129,7 +129,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
      });
 
      this.store.select('totalAssets').subscribe((res)=>{
-      this.totalAssets = res.totalAssets;
+      this.totalAssets = res.totalAssets.count;
      });
 
      this.store.select('availableAssets').subscribe((res)=>{
@@ -316,7 +316,8 @@ mapValues(fromAddress, toAddress) {
     });
   }
 
-  goto(route) {
+  goto(route, linkActive: string) {
+    this.dashboardService.change.emit(linkActive);
     this.router.navigate(['/', route]);
   }
   
