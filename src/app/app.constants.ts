@@ -23,7 +23,21 @@ export class AppConstants {
   public static GET_FACEBOOKFEED = function (fbId: string, accessToken:string) {
     return 'https://graph.facebook.com/v2.9/'+`${fbId}`+'/posts?access_token='+`${accessToken}`;
   };
-  public static GET_TWITTERFEED = '';
+
+  /*
+  $ curl --request GET 
+ --url 'https://api.twitter.com/1.1/search/tweets.json?q=nasa&result_type=popular'
+ --header 'authorization: OAuth oauth_consumer_key="consumer-key-for-app", 
+ oauth_nonce="generated-nonce", oauth_signature="generated-signature", 
+ oauth_signature_method="HMAC-SHA1", oauth_timestamp="generated-timestamp", 
+ oauth_token="access-token-for-authed-user", oauth_version="1.0"'
+ */
+  public static TWITTER_NAME = '';
+  public static GET_TWITTERFEED = function (name: string) {
+    return 'https://api.twitter.com/1.1/search/tweets.json?q='+`${name}`+'&result_type=popular';
+  };
+
+  
   public static RESOURCES_URL = AppConstants.QDMP_URI + '/resources';
   public static DELETE_ORGANIZATION = function (orgId: string) {
     return AppConstants.QDMP_URI + `dmorg/${orgId}`;

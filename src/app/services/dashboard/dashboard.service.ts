@@ -72,8 +72,8 @@ export class DashboardService {
   }
 
   public getTwitterFeed(): Observable<any> {
-    //return this.restService.getTwitterFeedResponse(AppConstants.GET_TWITTERFEED);
-    return this.twNews = new BehaviorSubject<any>(this.twitterFeed).asObservable();
+    //return this.restService.getTwitterFeedResponse(AppConstants.GET_TWITTERFEED(AppConstants.TWITTER_NAME));
+      return this.twNews = new BehaviorSubject<any>(this.twitterFeed).asObservable();
   }
 
  
