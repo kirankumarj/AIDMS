@@ -30,8 +30,10 @@
     "core-js": "^2.5.4",
     "hammerjs": "^2.0.8",
     "maptalks": "^0.40.4",
+    "node-x2js": "0.0.2",
     "rxjs": "^6.0.0",
     "rxjs-compat": "^6.2.2",
+    "x2js": "^3.2.1",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
