@@ -59,6 +59,7 @@ export class IncidentCreateComponent implements OnInit, AfterViewInit {
       this.service.getMapLocationDataByLL(this.newIncident.latitude, this.newIncident.longitude).
         subscribe((res) => {
           this.addressInfo = res;
+          this.map.remove();
           this.loadMap();
           this.mapValues(this.addressInfo, this.newIncident.address);
         });

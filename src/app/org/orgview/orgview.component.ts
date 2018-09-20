@@ -73,7 +73,7 @@ export class OrgviewComponent implements OnInit , AfterViewInit {
       console.log('Hit the service :: Get the all Org Details ');
       this.getAllOrganizations();
     } else {
-      console.log('Mock Data :: Get the all Org Details ');
+      console.log('Mock Data :: Org View :: Get the all Org Details ');
       this.service.mapLocation.subscribe(res => this.organization = res);
       this.service.saveOrganization(this.organization);
       this.dataSource = new MatTableDataSource<OrgMapInfo>(this.organization);

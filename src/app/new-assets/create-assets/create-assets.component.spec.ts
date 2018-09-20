@@ -9,6 +9,8 @@ import { StoreModule } from '../../../../node_modules/@ngrx/store';
 import { AllReducers } from '../../app.reducers';
 import { EffectsModule } from '../../../../node_modules/@ngrx/effects';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '../../../../node_modules/@angular/core';
+import { environment } from '../../../environments/environment';
+import { AssetsService } from '../../services/assets/assets.service';
 
 describe('CreateAssetsComponent', () => {
   let component: CreateAssetsComponent;
@@ -25,6 +27,9 @@ describe('CreateAssetsComponent', () => {
         CommonModule,
         StoreModule.forRoot(AllReducers),
         EffectsModule.forRoot([]),
+      ],
+      providers: [
+        AssetsService
       ],
       schemas: [
         CUSTOM_ELEMENTS_SCHEMA,

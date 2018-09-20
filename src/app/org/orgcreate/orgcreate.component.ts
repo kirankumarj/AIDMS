@@ -61,7 +61,7 @@ export class OrgcreateComponent implements OnInit, AfterViewInit {
       console.log('Hit the service :: Get the all Org Details ');
       this.getAllOrganizations();
     } else {
-      console.log('Mock Data :: Get the all Org Details ');
+      console.log('Mock Data :: Org Create : Get the all Org Details ');
       this.service.mapLocation.subscribe(res => this.organizationsList = res);
       this.service.saveOrganization(this.organizationsList);
     }
@@ -70,8 +70,9 @@ export class OrgcreateComponent implements OnInit, AfterViewInit {
     window.navigator.geolocation.getCurrentPosition((location) => {
         this.newOrg.latitude = location.coords.longitude;
         this.newOrg.longitude  = location.coords.latitude;
+        this.map.remove();
         this.loadMap();
-        }
+      }
     );
   }
   setStep(index: number) {

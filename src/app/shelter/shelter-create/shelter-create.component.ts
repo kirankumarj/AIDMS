@@ -95,7 +95,7 @@ export class ShelterCreateComponent implements OnInit, AfterViewInit {
       console.log('Hit the service :: Get the all Org Details ');
       this.getAllShelters();
     } else {
-      console.log('Mock Data :: Get the all Org Details ');
+      console.log('Mock Data :: Shelter Create :: Get the all Org Details ');
       this.service.mapLocation.subscribe(res => this.sheltersList = res);
       this.service.saveShelter(this.sheltersList);
     }

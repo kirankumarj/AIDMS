@@ -35,9 +35,7 @@ export class OfficeViewComponent implements AfterViewInit, OnInit {
   ngAfterViewInit() {
     this.loadMap();
   }
-  locateTheIncident(office) {
-    console.log(office);
-  }
+  
   animateMap(element) {
     console.log(element);
       setTimeout( ( ) => {

@@ -81,7 +81,7 @@ describe('OrgcreateComponent', () => {
     this.newOrg = newObject;
     const lengthList = fixture.debugElement.componentInstance.organizationsList.length;
     component.saveOrg();
-    expect(fixture.debugElement.componentInstance.organizationsList.length).toBe(lengthList + 1);
+    expect(fixture.debugElement.componentInstance.organizationsList.length).toBe(lengthList+1);
   });
   it('Org Create :: get AllOrganizations test case', () => {
     component.loadMap();
@@ -89,10 +89,11 @@ describe('OrgcreateComponent', () => {
     component.getAllOrganizations();
   });
   it('Org Create :: create Organization method test case', () => {
-    component.loadMap();
     this.newOrg = newObject;
     component.createOrganization();
+    expect(fixture.debugElement.componentInstance.step).toBe(0);
   });
+
   it('Org Create :: ngAfterViewInit method test case', () => {
     component.loadMap();
     this.newOrg = newObject;
@@ -104,7 +105,7 @@ describe('OrgcreateComponent', () => {
     component.getStatus();
   });
   it('Org Create :: next Step method & previous Step test case', () => {
-    component.loadMap();
+    //component.loadMap();
     this.newOrg = newObject;
     component.nextStep();
     expect(fixture.debugElement.componentInstance.step).toBe(1);

@@ -68,7 +68,7 @@ export class AssertCreateComponent implements OnInit, AfterViewInit {
       console.log('Hit the service :: Get the all Org Details ');
       this.getAllOrganizations();
     } else {
-      console.log('Mock Data :: Get the all Org Details ');
+      console.log('Mock Data :: Assert Create :: Get the all Org Details ');
       this.service.mapLocation.subscribe(res => this.organizationsList = res);
       this.service.saveOrganization(this.organizationsList);
       console.log(this.organizationsList);

@@ -38,9 +38,6 @@ export class IncidentViewComponent implements AfterViewInit, OnInit {
   ngAfterViewInit() {
     this.loadMap();
   }
-  locateTheIncident(incident) {
-    console.log(incident);
-  }
   animateMap(element) {
     // this.router.navigate(['incident-process']);
     console.log(element);

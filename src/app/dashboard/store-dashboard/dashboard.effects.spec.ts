@@ -1,7 +1,7 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Observable } from 'rxjs';
-
+import { HttpClientModule } from '@angular/common/http';
 import { DashboardEffects } from './dashboard.effects';
 
 describe('DashboardEffects', () => {
@@ -10,6 +10,9 @@ describe('DashboardEffects', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [
+        HttpClientModule
+      ],
       providers: [
         DashboardEffects,
         provideMockActions(() => actions$)

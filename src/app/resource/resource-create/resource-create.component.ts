@@ -69,7 +69,7 @@ export class ResourceCreateComponent implements OnInit, AfterViewInit {
       console.log('Hit the service :: Get the all Org Details ');
       this.getAllOrganizations();
     } else {
-      console.log('Mock Data :: Get the all Org Details ');
+      console.log('Mock Data :: Resource Create ::Get the all Org Details ');
       this.service.mapLocation.subscribe(res => this.organizationsList = res);
       this.service.saveOrganization(this.organizationsList);
     }

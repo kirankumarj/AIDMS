@@ -73,7 +73,7 @@ export class AssertViewComponent implements OnInit , AfterViewInit {
       console.log('Hit the service :: Get the all Org Details ');
       // this.getAllOrganizations();
     } else {
-      console.log('Mock Data :: Get the all Org Details ');
+      console.log('Mock Data :: Assert View :: Get the all Org Details ');
       this.service.mapLocation.subscribe(res => this.organization = res);
       this.service.saveOrganization(this.organization);
       this.dataSource = new MatTableDataSource<OrgMapInfo>(this.organization);
@@ -81,9 +81,7 @@ export class AssertViewComponent implements OnInit , AfterViewInit {
       this.loadMap();
     }
   }
-  locateTheIncident(incident) {
-    console.log(incident);
-  }
+  
   animateMap(element) {
     console.log(element);
       setTimeout( ( ) => {
