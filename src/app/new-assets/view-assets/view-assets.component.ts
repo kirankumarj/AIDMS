@@ -27,7 +27,7 @@ export class ViewAssetsComponent implements OnInit {
       this.dataSource = new MatTableDataSource<any>(assets);
 
     });
-   
+
 
   }
   onEditAsset(asset){
