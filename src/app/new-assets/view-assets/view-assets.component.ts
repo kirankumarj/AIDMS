@@ -15,7 +15,7 @@ import { MatTableDataSource } from '@angular/material';
 export class ViewAssetsComponent implements OnInit {
  assets=[];
  dataSource;
-  displayedColumns = ['assetName','category','item','organizationName',"action"];
+  displayedColumns = ['assetName', 'category', 'item', 'organizationName', 'action'];
   constructor(private store: Store<any>) { }
 
   ngOnInit() {
