@@ -12,7 +12,7 @@ export const inProgressIncidentsState: InProgressIncidentsState = {
 };
 
 export const totalResourcesState: TotalResourcesState = {
-  totalResources:0,
+  totalResources: {count: 0},
   message: ''
 };
 
@@ -29,7 +29,7 @@ export const allocatedResourcesState: AllocatedResourcesState = {
 
 
 export const totalAssetsState: TotalAssetsState = {
-  totalAssets:0,
+  totalAssets:{count: 0},
   message: ''
 };
 
