@@ -17,4 +17,5 @@ describe('AssetsService', () => {
   it('should be created', inject([AssetsService, RestService], (service: AssetsService) => {
     expect(service).toBeTruthy();
   }));
+  
 });

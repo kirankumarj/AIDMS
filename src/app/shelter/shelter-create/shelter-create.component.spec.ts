@@ -46,18 +46,22 @@ describe('ShelterCreateComponent', () => {
   const newShelterObject = {
     id: null,
     name: '',
-    latitude: 78.498,
-    longitude: 17.476,
+    lat: 78.498,
+    lon: 17.476,
     type: '',
     status: '',
     maxCapacity: '',
     currentOccupancy: '',
     contact: '',
-    city: '',
-    country: '',
-    postcode: '',
-    state: '',
-    state_district: '',
+    address: {
+      city: '',
+      country: '',
+      postcode: '',
+      state: '',
+      state_district: '',
+      display_name: '',
+      city_district: ''
+    },
     zone: ''
   };
 
@@ -71,10 +75,21 @@ describe('ShelterCreateComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it(' Shelter Create :: moveMap method test case', () => {
+    this.newShleter = newShelterObject;
+    component.moveMap(newShelterObject);
+    expect(fixture.debugElement.componentInstance.step).toBe(2);
+  });
+
   it('Shelter Create :: get AllShelters test case', () => {
     component.loadMap();
     this.newShleter = newShelterObject;
     component.getAllShelters();
+  });
+
+  it('Shelter Create :: createShelter test case', () => {
+    this.newShleter = newShelterObject;
+    component.createShelter();
   });
 
   it('Shelter Create :: service flag true test case (calls real API) ', () => {
@@ -82,8 +97,6 @@ describe('ShelterCreateComponent', () => {
     this.newShleter = newShelterObject;
     environment.isDataAvailableInRealService = true;
     component.saveShelter();
-    component.getAllShelters();
-    component.createShelter();
     component.ngAfterViewInit();
     component.getStatus();
     component.nextStep();

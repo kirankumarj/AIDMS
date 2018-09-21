@@ -70,8 +70,7 @@ export class OrgcreateComponent implements OnInit, AfterViewInit {
     window.navigator.geolocation.getCurrentPosition((location) => {
         this.newOrg.latitude = location.coords.longitude;
         this.newOrg.longitude  = location.coords.latitude;
-        this.map.remove();
-        this.loadMap();
+        //this.loadMap();
       }
     );
   }
@@ -85,6 +84,9 @@ export class OrgcreateComponent implements OnInit, AfterViewInit {
     this.step--;
   }
   loadMap() {
+    if(this.map !== undefined) {
+      this.map.remove();
+    }
     this.map = new maptalks.Map('map', {
       center: [this.newOrg.latitude, this.newOrg.longitude],
       zoom: 12,
@@ -106,6 +108,7 @@ export class OrgcreateComponent implements OnInit, AfterViewInit {
     });
 }
 getStatus() {
+  this.loadMap();
   this.addressInfo = '';
   this.step = 2;
   this.searchAddress = '';
@@ -136,7 +139,6 @@ mapValues(fromAddress, toAddress) {
   moveMap(addresDetails) {
     this.newOrg.latitude =  parseFloat(addresDetails.lon);
     this.newOrg.longitude = parseFloat(addresDetails.lat);
-    this.map.remove();
     this.loadMap();
     this.mapValues(addresDetails, this.newOrg.address);
     this.address = [];

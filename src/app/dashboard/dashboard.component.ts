@@ -230,6 +230,9 @@ loadMap() {
  }
 
  mapInitialization() {
+  if(this.map !== undefined) {
+    this.map.remove();
+  }
   this.map = new maptalks.Map('map', {
     center: [-0.113049, 51.498568],
     zoom: 14,
@@ -304,7 +307,6 @@ mapValues(fromAddress, toAddress) {
   moveMap(addresDetails) {
     this.newOrg.latitude =  parseFloat(addresDetails.lon);
     this.newOrg.longitude = parseFloat(addresDetails.lat);
-    this.map.remove();
     this.loadMap();
     this.mapValues(addresDetails, this.newOrg.address);
     this.address = [];

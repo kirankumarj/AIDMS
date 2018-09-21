@@ -74,13 +74,12 @@ describe('ResourceCreateComponent', () => {
   });
 
   it('Resource Create :: service flag true test case (calls real API) ', () => {
-    component.loadMap();
+    
     this.newResource = newResourceObject;
     environment.isDataAvailableInRealService = true;
     component.saveResource();
-    component.getAllOrganizations();
-    component.createresource();
     component.ngAfterViewInit();
+    component.loadMap();
     component.getStatus();
     component.nextStep();
     component.prevStep();

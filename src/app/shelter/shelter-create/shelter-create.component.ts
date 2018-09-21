@@ -105,7 +105,7 @@ export class ShelterCreateComponent implements OnInit, AfterViewInit {
     window.navigator.geolocation.getCurrentPosition((location) => {
       this.newShleter.latitude = location.coords.longitude;
       this.newShleter.longitude = location.coords.latitude;
-      this.loadMap();
+      //this.loadMap();
     }
     );
   }
@@ -122,6 +122,9 @@ export class ShelterCreateComponent implements OnInit, AfterViewInit {
   }
 
   loadMap() {
+    if(this.map !== undefined) {
+      this.map.remove();
+    }
     this.map = new maptalks.Map('map', {
       center: [this.newShleter.latitude, this.newShleter.longitude],
       zoom: 12,
@@ -190,7 +193,6 @@ export class ShelterCreateComponent implements OnInit, AfterViewInit {
   moveMap(addresDetails) {
     this.newShleter.latitude = parseFloat(addresDetails.lon);
     this.newShleter.longitude = parseFloat(addresDetails.lat);
-    this.map.remove();
     this.loadMap();
     this.mapValues(addresDetails, this.newShleter);
     this.address = [];

@@ -92,6 +92,9 @@ export class ResourceCreateComponent implements OnInit, AfterViewInit {
     this.step--;
   }
   loadMap() {
+    if(this.map !== undefined) {
+      this.map.remove();
+    }
     this.map = new maptalks.Map('map', {
       center: [this.newResource.latitude, this.newResource.longitude],
       zoom: 12,
@@ -143,7 +146,6 @@ mapValues(fromAddress, toAddress) {
   moveMap(addresDetails) {
     this.newResource.latitude =  parseFloat(addresDetails.lon);
     this.newResource.longitude = parseFloat(addresDetails.lat);
-    this.map.remove();
     this.loadMap();
     this.mapValues(addresDetails, this.newResource.address);
     this.address = [];

@@ -59,8 +59,7 @@ export class IncidentCreateComponent implements OnInit, AfterViewInit {
       this.service.getMapLocationDataByLL(this.newIncident.latitude, this.newIncident.longitude).
         subscribe((res) => {
           this.addressInfo = res;
-          this.map.remove();
-          this.loadMap();
+          //this.loadMap();
           this.mapValues(this.addressInfo, this.newIncident.address);
         });
       }
@@ -81,6 +80,9 @@ export class IncidentCreateComponent implements OnInit, AfterViewInit {
   }
 
   loadMap() {
+    if(this.map !== undefined){
+      this.map.remove();
+    }
     this.map = new maptalks.Map('map', {
       center: [this.newIncident.latitude, this.newIncident.longitude],
       zoom: 14,
@@ -143,7 +145,6 @@ export class IncidentCreateComponent implements OnInit, AfterViewInit {
   moveMap(addresDetails) {
     this.newIncident.latitude =  parseFloat(addresDetails.lon);
     this.newIncident.longitude = parseFloat(addresDetails.lat);
-    this.map.remove();
     this.loadMap();
     this.mapValues(addresDetails, this.newIncident.address);
     this.address = [];

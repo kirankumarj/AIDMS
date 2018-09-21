@@ -8,10 +8,16 @@ import { StoreModule} from '@ngrx/store';
 import { AllReducers} from '../../app.reducers';
 import { CommonModule} from '@angular/common';
 import { environment } from '../../../environments/environment';
+import { mockData } from '../../../mock/mockservicedata';
+import { InfoService } from '../../info.service';
+let service: InfoService;
+let mockIncidentsList = mockData.incidentsList;
 
 describe('IncidentProcessComponent', () => {
   let component: IncidentProcessComponent;
   let fixture: ComponentFixture<IncidentProcessComponent>;
+  let service: InfoService;
+  let mockIncidentsList = mockData.incidentsList;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -35,7 +41,13 @@ describe('IncidentProcessComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  // it('should create', () => {
+  //   service = fixture.debugElement.injector.get(InfoService);
+  //   let spy = spyOn(service, 'incident').and.returnValue(Promise.resolve(this.mockIncidentsList))
+  //   fixture.detectChanges();
+  //   fixture.whenStable().then(() => {
+  //     expect(component).toBeTruthy();
+  //   });
+  // });
+
 });

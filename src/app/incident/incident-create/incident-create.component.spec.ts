@@ -8,6 +8,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MaterialModule} from '../../materialModules';
 import { environment } from '../../../environments/environment';
+import { mockData } from '../../../mock/mockservicedata';
+import { InfoService } from '../../info.service';
 
 @NgModule({
   declarations: [PopupComponent],
@@ -21,6 +23,8 @@ class TestModule {}
 describe('IncidentCreateComponent', () => {
   let component: IncidentCreateComponent;
   let fixture: ComponentFixture<IncidentCreateComponent>;
+  let service: InfoService;
+  let mockIncidentsList = mockData.incidentsList;
 
   const newIncidentObj = {
     id: '',
@@ -57,15 +61,21 @@ describe('IncidentCreateComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(IncidentCreateComponent);
     component = fixture.componentInstance;
-    // fixture.detectChanges();
+    fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  it('should create', async(() => {
+    this.newIncident = newIncidentObj;
+    service = fixture.debugElement.injector.get(InfoService);
+    let spy = spyOn(service, 'incident').and.returnValue(Promise.resolve(this.mockIncidentsList))
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      expect(component).toBeTruthy();
+    });
+  }));
 
   it(' Incident Create moveMap method test case', () => {
-    component.loadMap();
+    //component.loadMap();
     this.newIncident = newIncidentObj;
     console.log("Passing newIncidentObj : ", newIncidentObj);
     component.moveMap(newIncidentObj);
@@ -73,12 +83,13 @@ describe('IncidentCreateComponent', () => {
   });
 
   it(' Incident Create changeIncidentType method test case', () => {
-    component.loadMap();
+    //component.loadMap();
+    this.newIncident = newIncidentObj;
     component.changeIncidentType('true');
     expect(fixture.debugElement.componentInstance.newIncident.type).toBe('true');
   });
 
-  it('Org Create :: Save Org method test case', () => {
+  it('Incident Create :: Save Incident method test case', () => {
     component.loadMap();
     this.newIncident = newIncidentObj;
     const lengthList = fixture.debugElement.componentInstance.incidents.length;
